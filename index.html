@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>readme.txt</title>
+<link rel="icon" type="image/jpeg" href="favico.jpg">
+<link rel="shortcut icon" href="favico.jpg">
+<link rel="apple-touch-icon" href="favico.jpg">
+<style>
+
+  :root{
+    --viewport-width: 100vw;
+    --viewport-height: 100dvh;
+    --viewport-left: 0px;
+    --viewport-top: 0px;
+    --viewport-inset-x: 10vw;
+    --viewport-inset-y: 10dvh;
+    --cursor-default: url('cursor.png') 4 4, auto;
+    --cursor-link:    url('link.png') 4 4, pointer;
+  }
+
+  html.loading,
+  html.loading body{
+    overflow: hidden;
+  }
+
+  html.loading .frame{
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .loader-screen{
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 220ms linear, visibility 220ms linear;
+  }
+
+  .loader-screen.hidden{
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .ios-spinner{
+    position: relative;
+    width: 28px;
+    height: 28px;
+  }
+
+  .ios-spinner div{
+    position: absolute;
+    top: 1px;
+    left: 13px;
+    width: 2px;
+    height: 7px;
+    border-radius: 999px;
+    background: #000;
+    transform-origin: 1px 13px;
+    animation: ios-spinner-fade 1s linear infinite;
+  }
+
+  .ios-spinner div:nth-child(1){ transform: rotate(0deg); animation-delay: -0.9167s; }
+  .ios-spinner div:nth-child(2){ transform: rotate(30deg); animation-delay: -0.8334s; }
+  .ios-spinner div:nth-child(3){ transform: rotate(60deg); animation-delay: -0.7501s; }
+  .ios-spinner div:nth-child(4){ transform: rotate(90deg); animation-delay: -0.6668s; }
+  .ios-spinner div:nth-child(5){ transform: rotate(120deg); animation-delay: -0.5835s; }
+  .ios-spinner div:nth-child(6){ transform: rotate(150deg); animation-delay: -0.5002s; }
+  .ios-spinner div:nth-child(7){ transform: rotate(180deg); animation-delay: -0.4169s; }
+  .ios-spinner div:nth-child(8){ transform: rotate(210deg); animation-delay: -0.3336s; }
+  .ios-spinner div:nth-child(9){ transform: rotate(240deg); animation-delay: -0.2503s; }
+  .ios-spinner div:nth-child(10){ transform: rotate(270deg); animation-delay: -0.167s; }
+  .ios-spinner div:nth-child(11){ transform: rotate(300deg); animation-delay: -0.0837s; }
+  .ios-spinner div:nth-child(12){ transform: rotate(330deg); animation-delay: 0s; }
+
+  @keyframes ios-spinner-fade{
+    0%{ opacity: 1; }
+    100%{ opacity: 0.15; }
+  }
+
+  html, body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    color: #000000;
+    overflow: hidden;
+    cursor: var(--cursor-default);
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: pan-y;
+  }
+
+  *{
+    cursor: var(--cursor-default);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  a, [data-link]{
+    cursor: var(--cursor-link);
+  }
+
+  .frame{
+    position: fixed;
+    top: calc(var(--viewport-top) + var(--viewport-inset-y));
+    left: calc(var(--viewport-left) + var(--viewport-inset-x));
+    width: calc(var(--viewport-width) - var(--viewport-inset-x) - var(--viewport-inset-x));
+    height: calc(var(--viewport-height) - var(--viewport-inset-y) - var(--viewport-inset-y));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .page-outer{
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 4 / 3;
+  }
+
+  @media (min-aspect-ratio: 4/3){
+    .page-outer{ width: auto; height: 100%; }
+  }
+  @media (max-aspect-ratio: 4/3){
+    .page-outer{ width: 100%; height: auto; }
+  }
+
+  .page{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    will-change: filter;
+    transition: filter 80ms linear;
+  }
+  .page::-webkit-scrollbar{
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  #text{
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 16px;
+    line-height: 1.32;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    outline: none;
+    min-height: 100%;
+    text-align: justify;
+  }
+
+  #text.editing{
+    caret-color: #000;
+  }
+
+  .body-line{
+    font-size: 1.04em;
+  }
+
+  .body-line,
+  .body-line *,
+  .title-line,
+  .title-line *,
+  .identity-line,
+  .identity-line *,
+  .instagram-widget *,
+  .youtube-widget *{
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  img{
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
+  ::selection{
+    background: #000;
+    color: #fff;
+  }
+  ::-moz-selection{
+    background: #000;
+    color: #fff;
+  }
+
+  .char{
+    opacity: 0;
+    display: inline;
+    transition: opacity 45ms linear;
+  }
+  .char.in{
+    opacity: 1;
+  }
+
+  .hl{
+    background: transparent;
+    color: #000;
+  }
+
+  .hl .char{
+    color: #000;
+    transition: opacity 45ms linear, background-color 70ms linear, color 70ms linear;
+  }
+
+  .hl .char.selected,
+  .hl.hl-complete{
+    background: #000;
+    color: #fff;
+  }
+
+  .identity-line{
+    display: inline-block;
+    width: 292px;
+    font-size: 1.46em;
+    line-height: 1.55;
+    letter-spacing: 0.12em;
+    text-align: center;
+  }
+
+  .divider-line{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    line-height: 1.15;
+  }
+
+  .header-divider{
+    margin-top: 22px;
+  }
+
+  .title-line{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .title-line::before,
+  .title-line::after{
+    display: inline-block;
+    width: 8ch;
+    margin: 0 8px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 45ms linear;
+  }
+
+  .title-line::before{
+    content: attr(data-left);
+  }
+
+  .title-line::after{
+    content: attr(data-right);
+  }
+
+  .title-line.decorations-visible::before,
+  .title-line.decorations-visible::after{
+    opacity: 1;
+  }
+
+  .readme-signature{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 190px;
+    height: 38px;
+    overflow: hidden;
+    transform: translateX(-50%);
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .readme-signature img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 190px;
+    height: auto;
+    display: block;
+    filter: none;
+    transform: translate(-50%,-50%);
+  }
+
+  .antipublic-title-art{
+    width: min(350px,72vw);
+    height: auto;
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    margin: 0;
+    vertical-align: top;
+    transform: translateX(-50%);
+  }
+
+  .cat-photo,
+  .chroma-animation{
+    width: 190px;
+    height: 190px;
+    display: block;
+    margin: 4px auto;
+    object-fit: cover;
+  }
+
+  .cat-photo{
+    filter: grayscale(1) contrast(1.08);
+  }
+
+  .chroma-animation{
+    filter: none;
+  }
+
+  .media-pair{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin: 6px auto;
+  }
+
+  .cat-frame,
+  .chroma-frame{
+    width: max-content;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    color: #000;
+    font-family: Consolas, "Courier New", monospace;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .cat-frame::before,
+  .chroma-frame::before{
+    content: "┏━━━━━━━━ ★ ━━━━━━━━┓";
+  }
+
+  .cat-frame::after,
+  .chroma-frame::after{
+    content: "┗━━━━━━━━ ★ ━━━━━━━━┛";
+  }
+
+  .antipublic-footer-art{
+    width: min(820px,92%);
+    height: auto;
+    display: block;
+    margin: 0 auto 12px;
+  }
+
+  .plain-link{
+    color: inherit;
+    text-decoration: none;
+    font: inherit;
+  }
+
+  .instagram-widget,
+  .youtube-widget{
+    width: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 13px;
+    border: 1px solid #fff;
+    border-radius: 14px;
+    color: #fff;
+    background: linear-gradient(145deg,#111 0%,#000 58%);
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+    box-shadow: inset 0 0 0 1px #2a2a2a;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .social-widgets-row{
+    width: min(900px,96%);
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 16px;
+    margin: 10px auto 20px;
+  }
+
+  .instagram-profile{
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .instagram-avatar{
+    width: 76px;
+    height: 76px;
+    display: block;
+    border: 1px solid #000;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 18%;
+    filter: grayscale(1) contrast(1.06);
+  }
+
+  .instagram-avatar-ring{
+    width: 78px;
+    height: 78px;
+    box-sizing: content-box;
+    padding: 2px;
+    border-radius: 50%;
+    background: conic-gradient(#fff,#555,#000,#aaa,#fff);
+    transform: translateY(5px);
+  }
+
+  .youtube-avatar{
+    width: 78px;
+    height: 78px;
+    display: block;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.12);
+    transform: translateY(4px);
+  }
+
+  .instagram-name-row{
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .instagram-verified{
+    width: 17px;
+    height: 17px;
+    display: block;
+    filter: grayscale(1);
+  }
+
+  .instagram-real-name,
+  .instagram-bio{
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .instagram-stats{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 6px;
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .youtube-widget .instagram-stats{
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .instagram-stat strong,
+  .instagram-stat span{
+    display: block;
+  }
+
+  .instagram-stat strong{
+    font-size: 15px;
+  }
+
+  .instagram-stat span{
+    margin-top: 2px;
+    color: #aaa;
+    font-size: 11px;
+  }
+
+  .instagram-follow{
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    padding: 7px 12px;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    color: #000;
+    background: #fff;
+    font: 700 13px/1 Arial, Helvetica, sans-serif;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 7px;
+  }
+
+
+  .youtube-embed-wrap{
+    width: min(720px,96%);
+    box-sizing: border-box;
+    margin: 10px auto 20px;
+    padding: 0;
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .youtube-embed-frame{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: 0;
+    border-radius: 10px;
+    background: #000;
+  }
+
+  .youtube-embed-frame iframe{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .readme-credit{
+    display: block;
+    width: 100%;
+    margin: 6px auto 18px;
+    color: rgba(0,0,0,0.46);
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 11px;
+    line-height: 1.25;
+    text-align: center;
+  }
+
+  .readme-credit a{
+    color: inherit;
+    text-decoration: none;
+  }
+
+  @media (max-width: 520px){
+    .instagram-widget,
+    .youtube-widget{
+      height: 199px;
+      padding: 11px;
+    }
+
+    .instagram-profile{
+      grid-template-columns: 70px 1fr;
+      gap: 10px;
+    }
+
+    .instagram-avatar{
+      width: 62px;
+      height: 62px;
+    }
+
+    .instagram-avatar-ring{
+      width: 64px;
+      height: 64px;
+    }
+
+    .youtube-avatar{
+      width: 64px;
+      height: 64px;
+    }
+
+    .social-widgets-row{
+      grid-template-columns: 1fr;
+    }
+
+    .youtube-embed-wrap{
+      width: 100%;
+      margin: 4px auto 20px;
+      padding: 0;
+    }
+
+    .youtube-embed-frame{
+      border-radius: 14px;
+    }
+
+  }
+
+  .sequence-media{
+    opacity: 0;
+    transition: opacity 45ms linear;
+  }
+
+  .sequence-media.sequence-visible{
+    opacity: 1;
+  }
+
+  .readme-card-slot{
+    --card-scale: 0.67;
+    position: absolute;
+    top: 42px;
+    left: 50%;
+    right: auto;
+    width: 268px;
+    height: 168px;
+    z-index: 6;
+    perspective: 1400px;
+    -webkit-user-select: none;
+    user-select: none;
+    transform: translateX(-50%);
+  }
+
+  .readme-identity-copy{
+    position: absolute;
+    top: 53px;
+    right: 0;
+    width: 292px;
+    z-index: 3;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .readme-identity-copy .identity-line{
+    display: block;
+  }
+
+  .readme-card-scale{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 250px;
+    transform: scale(var(--card-scale));
+    transform-origin: top right;
+  }
+
+  .readme-credit-card{
+    --mx: 50%;
+    --my: 50%;
+    --tilt-x-deg: 0deg;
+    --tilt-y-deg: 0deg;
+    width: 400px;
+    height: 250px;
+    position: relative;
+    transform-style: preserve-3d;
+    filter: none;
+    contain: layout style;
+    will-change: transform;
+  }
+
+  .readme-card-outer,
+  .readme-card-3d{
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .readme-card-3d{
+    transform: perspective(1400px) rotateX(0deg) rotateY(-2.5deg);
+    transition: transform 0.6s cubic-bezier(0.25,1,0.5,1);
+  }
+
+  .readme-card-face{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 16px;
+    padding: 24px;
+    backface-visibility: hidden;
+    overflow: hidden;
+  }
+
+  .readme-card-face::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.25) 0, rgba(255,255,255,0.25) 0.5px, rgba(220,220,220,0.15) 0.5px, rgba(220,220,220,0.15) 1px),
+      repeating-linear-gradient(-45deg, rgba(245,245,245,0.2) 0, rgba(245,245,245,0.2) 0.5px, rgba(210,210,210,0.12) 0.5px, rgba(210,210,210,0.12) 1px),
+      repeating-linear-gradient(0deg, rgba(250,250,250,0.1) 0, rgba(250,250,250,0.1) 0.25px, rgba(235,235,235,0.08) 0.25px, rgba(235,235,235,0.08) 0.5px),
+      radial-gradient(circle at 25% 25%, rgba(255,255,255,0.15) 0%, transparent 40%),
+      radial-gradient(circle at 75% 75%, rgba(240,240,240,0.12) 0%, transparent 45%);
+    mix-blend-mode: multiply;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .readme-card-light{
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: radial-gradient(800px 600px at var(--mx) var(--my), rgba(255,255,255,0.12), rgba(255,255,255,0.06) 60%, transparent 85%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 15;
+    mix-blend-mode: soft-light;
+  }
+
+  .readme-card-slot .front{
+    background: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: none;
+    box-shadow: none;
+  }
+
+  .readme-card-slot .back{
+    padding-top: 75px;
+    color: #fff;
+    background: #000;
+    transform: rotateY(180deg);
+    box-shadow: none;
+  }
+
+  .readme-card-slot .card-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .readme-card-slot .bank-name{
+    color: #fff;
+    font: 600 12px/1 "Courier New", monospace;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    text-shadow: none;
+  }
+
+  .readme-card-slot .card-type{
+    color: #fff;
+    font: 400 10px/1 "Courier New", monospace;
+    letter-spacing: 0.5px;
+    opacity: 0.6;
+    text-shadow: none;
+  }
+
+  .readme-card-slot .chip{
+    width: 56px;
+    height: 42px;
+    position: relative;
+    margin-bottom: 30px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    background: #fff;
+  }
+
+  .readme-card-slot .chip-svg{
+    width: 100%;
+    height: 100%;
+    filter: brightness(0);
+  }
+
+  .readme-card-slot .card-number{
+    margin-bottom: 25px;
+    color: #fff;
+    font: 500 22px/1 "Courier New", monospace;
+    letter-spacing: 3px;
+    text-shadow: none;
+  }
+
+  .readme-card-slot .card-number span{
+    margin-right: 12px;
+  }
+
+  .readme-card-slot .card-info{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .readme-card-slot .card-info > div:last-child{
+    text-align: left;
+  }
+
+  .readme-card-slot .label{
+    margin-bottom: 4px;
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: 1px;
+    opacity: 0.7;
+  }
+
+  .readme-card-slot .value{
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-shadow: none;
+  }
+
+  .readme-card-slot .card-footer{
+    position: absolute;
+    right: 12px;
+    bottom: 8px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .readme-card-slot .network-logo{
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: 0.5px;
+    text-shadow: none;
+  }
+
+  .readme-card-slot .magnetic-stripe{
+    position: absolute;
+    top: 22px;
+    left: 0;
+    right: 0;
+    height: 50px;
+    z-index: 5;
+    background: #fff;
+    box-shadow: none;
+  }
+
+  .readme-card-slot .site-url{
+    position: absolute;
+    top: 8px;
+    left: 24px;
+    right: 24px;
+    color: #fff;
+    font: 400 8px/1 "Courier New", monospace;
+    letter-spacing: 0.3px;
+    opacity: 0.9;
+  }
+
+  .readme-card-slot .signature-section{
+    display: flex;
+    gap: 20px;
+    margin-top: 12px;
+    margin-bottom: 20px;
+  }
+
+  .readme-card-slot .signature-panel{
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    color: #000;
+    background: #fff;
+    box-shadow: none;
+  }
+
+  .readme-card-slot .signature-text{
+    display: block;
+    margin-bottom: 4px;
+    color: #000;
+    font-size: 8px;
+  }
+
+  .readme-card-slot .signature-line{
+    height: 20px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .readme-card-slot .signature-line img{
+    width: 150px;
+    height: 54px;
+    object-fit: contain;
+    filter: brightness(0.4);
+    transform: translate(-10px,-20px);
+  }
+
+  .readme-card-slot .cvv-section{
+    width: 80px;
+    text-align: center;
+  }
+
+  .readme-card-slot .cvv-label{
+    margin-bottom: 4px;
+    font-size: 10px;
+    opacity: 0.7;
+  }
+
+  .readme-card-slot .cvv-number{
+    padding: 8px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    color: #000;
+    background: #fff;
+    font: 600 14px/1 "Courier New", monospace;
+  }
+
+  .readme-card-slot .hologram{
+    position: absolute;
+    left: 8px;
+    bottom: 6px;
+    width: 70px;
+    height: 70px;
+    background: conic-gradient(from 90deg,#a8a8b8,#d5d5d5,#9292b4,#dadada,#a8a8b8);
+    -webkit-mask: url('../presage.svg') center/contain no-repeat;
+    mask: url('../presage.svg') center/contain no-repeat;
+    opacity: 0.75;
+  }
+
+  .readme-card-slot .founder-text{
+    position: absolute;
+    left: 80px;
+    bottom: 31px;
+    color: #fff;
+    font: 900 28px/1 "Courier New", monospace;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    text-shadow: none;
+  }
+
+  .readme-card-slot .legal-text{
+    position: absolute;
+    right: 18px;
+    bottom: 12px;
+    max-width: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: #fff;
+    font: 400 7px/1.2 "Courier New", monospace;
+    text-align: right;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 768px){
+    .frame{
+      top: var(--viewport-top);
+      left: var(--viewport-left);
+      width: var(--viewport-width);
+      height: var(--viewport-height);
+      padding:
+        max(14px, env(safe-area-inset-top))
+        max(14px, env(safe-area-inset-right))
+        max(14px, env(safe-area-inset-bottom))
+        max(14px, env(safe-area-inset-left));
+      box-sizing: border-box;
+    }
+
+    .page-outer{
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
+      aspect-ratio: auto;
+    }
+
+    #text{
+      font-size: clamp(11px, 3.15vw, 14px);
+      line-height: 1.4;
+      box-sizing: border-box;
+      padding-top: 168px;
+    }
+
+    .media-pair{
+      gap: 8px;
+    }
+
+    .cat-frame,
+    .chroma-frame{
+      min-width: 0;
+      font-size: clamp(7px, 2.1vw, 10px);
+    }
+
+    .cat-photo,
+    .chroma-animation{
+      width: min(39vw, 160px);
+      height: min(39vw, 160px);
+    }
+
+    .readme-card-slot{
+      --card-scale: 0.52;
+      top: 38px;
+      left: 50%;
+      right: auto;
+      width: 208px;
+      height: 130px;
+      transform: translateX(-50%);
+    }
+
+    .readme-signature{
+      top: 2px;
+      left: 50%;
+      right: auto;
+      width: 150px;
+      height: 32px;
+      transform: translateX(-50%);
+    }
+
+    .readme-signature img{
+      width: 150px;
+    }
+
+    .readme-identity-copy{
+      display: none;
+    }
+
+    .identity-line{
+      width: 100%;
+      font-size: 1.18em;
+      line-height: 1.5;
+      letter-spacing: 0.1em;
+    }
+
+    .antipublic-title-art{
+      width: min(330px,88vw);
+    }
+
+    .antipublic-footer-art{
+      width: 100%;
+    }
+  }
+
+</style>
+</head>
+<body>
+  <div class="loader-screen" id="loader-screen" aria-hidden="true">
+    <div class="ios-spinner">
+      <div></div><div></div><div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div><div></div><div></div>
+    </div>
+  </div>
+
+  <svg width="0" height="0" style="position:absolute">
+    <filter id="motion-blur" x="-20%" y="-100%" width="140%" height="300%">
+      <feGaussianBlur id="motion-blur-amount" in="SourceGraphic" stdDeviation="0 0" />
+    </filter>
+  </svg>
+
+  <div class="frame">
+    <div class="page-outer">
+      <div class="page" id="page">
+        <div id="text" spellcheck="false"></div>
+        <div class="readme-signature" aria-hidden="true"><img src="firma.png?v=2" alt=""></div>
+        <div class="readme-card-slot" aria-label="Presage card">
+          <div class="readme-card-scale">
+            <div class="readme-credit-card">
+              <div class="readme-card-outer">
+                <div class="readme-card-3d">
+                  <div class="readme-card-light"></div>
+                  <div class="readme-card-face front">
+                    <div class="card-header">
+                      <div class="bank-name">ANTIPUBLIC</div>
+                      <div class="card-type">PREMIUM</div>
+                    </div>
+                    <div class="chip">
+                      <svg class="chip-svg" viewBox="0 0 48 36" aria-hidden="true">
+                        <rect x="10" y="6" width="28" height="24" rx="3" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" />
+                        <rect x="21" y="13" width="6" height="10" rx="1.2" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.25)" stroke-width="0.6" />
+                        <path d="M4 12 H18 C20 12 21 12.5 23 14 L25 14 C27 12.5 28 12 30 12 H44" stroke="#9a9a9a" stroke-width="1.6" fill="none" stroke-linecap="round" />
+                        <path d="M4 24 H18 C20 24 21 23.5 23 22 L25 22 C27 23.5 28 24 30 24 H44" stroke="#9a9a9a" stroke-width="1.6" fill="none" stroke-linecap="round" />
+                        <path d="M16 6 V30 M32 6 V30" stroke="rgba(200,200,200,0.18)" stroke-width="0.8" />
+                      </svg>
+                    </div>
+                    <div class="card-number">
+                      <span>4532</span><span>1234</span><span>5678</span><span>9012</span>
+                    </div>
+                    <div class="card-info">
+                      <div>
+                        <div class="label">VALID THRU</div>
+                        <div class="value">06/05</div>
+                      </div>
+                      <div>
+                        <div class="label">CARD HOLDER</div>
+                        <div class="value">Presage</div>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <div class="network-logo">FLEX</div>
+                    </div>
+                  </div>
+                  <div class="readme-card-face back">
+                    <div class="magnetic-stripe"></div>
+                    <div class="site-url">https://www.fakecrime/antipublic.</div>
+                    <div class="signature-section">
+                      <div class="signature-panel">
+                        <span class="signature-text">Authorized Signature</span>
+                        <div class="signature-line"><img src="signature.svg" alt="" /></div>
+                      </div>
+                      <div class="cvv-section">
+                        <div class="cvv-label">CVV</div>
+                        <div class="cvv-number">133</div>
+                      </div>
+                    </div>
+                    <div class="hologram"></div>
+                    <div class="founder-text">CEO</div>
+                    <div class="legal-text">
+                      <div>If found, call Flex Customer Care: 1-800-FLEX</div>
+                      <div>This card remains the property of FLEX. Terms apply.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="readme-identity-copy" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/plain" id="readme-source-es">
+ 
+
+A B C D E F G H I
+P R E S A G I O S
+J K L M N O P Q R
+S T U V W X Y Z
+━─━────༺༻────━─━
+m llamo presage y hago kosas piolas en web cuando m da la gana si, cualkier cosa ahi necesiten algo pa su web o lo que sea me mandan mail a antipublico@icloud.com o me escriben en ig: prsge
+
+━─━────༺༻────━─━
+mis gustos
+m gustan la musica, los gatos, black ops 6, geometry dash, la nicotina y las tetas. tengo 9 gatos porq son el mejor ser vivo del mundo si. me encanta el color blanco y todo lo q tenga q ver con el, amo el concepto del ether... me gusta colaborar con gente k hace arte y aprender de ellos, inspirarme y ayudar. mis artistas favs son Edward skeletrix y mi grupo de kpop fav es newjeans ok que vuelvan. mis juegos fav son stalker 2 y tarkov y mi pelicula fav es stay 2005
+
+elao de limon lomejor del mundoo
+
+━─━────༺༻────━─━
+antipublic
+hace masomenos 1 año y algo m dio el aburrimiento mal y m puse a aprender a como hacer diseños en photoshop pq queria expresar algo o no se simplemente hacer algo bonito, pero me dio paja pq no me salia pero viendo pinterest vi cosas de paginas de la epoca del 2002-2005 metro y dije owao que piola voy a probar y asi estuve meses haciendo y puliendo cosas hasta llegar a terminar antipublic.org con unos amigos, mas allá de lo bueno q estuvo todo el proceso m encantó ayudar a gente con sus proyectos y conocer artistas nuevos pa trabajar. si quieren saber mas de antipublic o lo que hacemos pueden ir a www.antipublic.org/aboutus
+
+todavia sigo con ese hobby de programar cuando estoy aburrido o se me ocurre algo y tengo varios proyectos importantes abandonados por paja pero apenas me pegue la creatividad otra vez voy a seguir.
+
+mi sueño es poder hacer algo realmente util para mucha gente en lugar de para un grupo o persona concretos asi k ando ahi viendo que es lo mejor.
+━─━────༺༻────━─━
+presage
+
+</script>
+
+<script type="text/plain" id="readme-source-en">
+ 
+
+A B C D E F G H I
+P R E S A G I O S
+J K L M N O P Q R
+S T U V W X Y Z
+━─━────༺༻────━─━
+my name is presage and i make cool stuff on the web whenever i feel like it. if anyone needs something for their website or whatever, send me an email at antipublico@icloud.com or message me on ig: prsge
+
+━─━────༺༻────━─━
+my tastes
+i like music, cats, black ops 6, geometry dash, nicotine and boobs. i have 9 cats because they are the best living thing in the world yes. i love the color white and everything related to it, i love the concept of ether... i like collaborating with people who make art and learning from them, getting inspired and helping. my favorite artists are Edward skeletrix and my favorite kpop group is newjeans ok let them come back. my favorite games are stalker 2 and tarkov and my favorite movie is stay 2005
+
+lemon ice cream best thing in the worlddd
+
+━─━────༺༻────━─━
+antipublic
+about 1 year and a bit ago boredom hit me bad and i started learning how to make designs in photoshop because i wanted to express something or idk just make something pretty, but i got lazy because i couldn't get it right. then while looking at pinterest i saw pages from the 2002-2005 metro era and thought wow that's cool i'm gonna try it, and i spent months making and polishing things until i finished antipublic.org with some friends. beyond how good the whole process was, i loved helping people with their projects and meeting new artists to work with. if you want to know more about antipublic or what we do, you can go to www.antipublic.org/aboutus
+
+i still keep that programming hobby whenever i'm bored or come up with something, and i have several important projects abandoned out of laziness, but as soon as creativity hits me again i'll continue.
+
+my dream is to make something actually useful for many people instead of for one specific group or person, so i'm there trying to see what's best.
+━─━────༺༻────━─━
+presage
+
+
+</script>
+
+<script>
+(function(){
+
+  var textEl = document.getElementById('text');
+  var identityCopyEl = document.querySelector('.readme-identity-copy');
+  var pageEl = document.getElementById('page');
+  var cardSlot = document.querySelector('.readme-card-slot');
+  var creditCard = document.querySelector('.readme-credit-card');
+  var card3d = document.querySelector('.readme-card-3d');
+  var cardHovering = false;
+  var cardFlipped = false;
+  var cardPointerTiltX = 0;
+  var cardPointerTiltY = 0;
+  var cardPointerLightX = 50;
+  var cardPointerLightY = 50;
+  var cardLastFrame = 0;
+  var cardStartTime = performance.now();
+
+  document.addEventListener('dragstart', function(event){
+    event.preventDefault();
+  });
+
+  document.addEventListener('contextmenu', function(event){
+    if (event.target instanceof HTMLImageElement) event.preventDefault();
+  });
+
+  document.addEventListener('copy', function(event){
+    event.preventDefault();
+    if (event.clipboardData) event.clipboardData.setData('text/plain', '');
+  });
+
+  document.addEventListener('wheel', function(event){
+    if (event.ctrlKey || event.metaKey) event.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('dblclick', function(event){
+    event.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('keydown', function(event){
+    if ((event.ctrlKey || event.metaKey) && ['+', '-', '=', '0'].indexOf(event.key) >= 0){
+      event.preventDefault();
+    }
+  });
+
+  ['gesturestart', 'gesturechange', 'gestureend'].forEach(function(type){
+    document.addEventListener(type, function(event){
+      event.preventDefault();
+    }, { passive: false });
+  });
+
+  function setCardMotion(tiltX, tiltY, lightX, lightY){
+    var flip = cardFlipped ? 180 : 0;
+    card3d.style.transform = 'perspective(1400px) rotateX(' + tiltX.toFixed(2) + 'deg) rotateY(' + (tiltY - 2.5 + flip).toFixed(2) + 'deg)';
+    creditCard.style.setProperty('--mx', lightX.toFixed(1) + '%');
+    creditCard.style.setProperty('--my', lightY.toFixed(1) + '%');
+    creditCard.style.setProperty('--tilt-x', tiltX.toFixed(2));
+    creditCard.style.setProperty('--tilt-y', tiltY.toFixed(2));
+    creditCard.style.setProperty('--tilt-x-deg', tiltX.toFixed(2) + 'deg');
+    creditCard.style.setProperty('--tilt-y-deg', tiltY.toFixed(2) + 'deg');
+  }
+
+  cardSlot.addEventListener('click', function(){
+    cardFlipped = !cardFlipped;
+  });
+
+  cardSlot.addEventListener('pointerenter', function(){
+    cardHovering = true;
+  });
+
+  cardSlot.addEventListener('pointermove', function(event){
+    var rect = cardSlot.getBoundingClientRect();
+    var x = (event.clientX - rect.left) / rect.width;
+    var y = (event.clientY - rect.top) / rect.height;
+    cardPointerTiltX = (0.5 - y) * 10;
+    cardPointerTiltY = (x - 0.5) * 10;
+    cardPointerLightX = x * 100;
+    cardPointerLightY = y * 100;
+  });
+
+  cardSlot.addEventListener('pointerleave', function(){
+    cardHovering = false;
+    cardPointerTiltX = 0;
+    cardPointerTiltY = 0;
+    cardPointerLightX = 50;
+    cardPointerLightY = 50;
+  });
+
+  function animateCard(now){
+    var isMobile = window.innerWidth <= 768;
+    var frameDuration = 1000 / (isMobile ? 6 : 36);
+    if (now - cardLastFrame >= frameDuration){
+      cardLastFrame = now;
+      var elapsed = (now - cardStartTime) / 1000;
+      var strength = isMobile ? 1.05 : 0.85;
+      var speed = 1.55;
+      var tiltX = (Math.sin(elapsed * 0.3 * speed) * 8.5 + Math.sin(elapsed * 0.7 * speed) * 4.2) * strength;
+      var tiltY = (Math.cos(elapsed * 0.4 * speed) * 9.2 + Math.cos(elapsed * 0.8 * speed) * 4.5) * strength;
+      var offsetX = Math.sin(elapsed * 0.2 * speed) * 3.8 * strength;
+      var offsetY = Math.cos(elapsed * 0.25 * speed) * 2.8 * strength;
+      var pointerWeight = cardHovering ? 0.68 : 0;
+      setCardMotion(
+        tiltX + cardPointerTiltX * pointerWeight,
+        tiltY + cardPointerTiltY * pointerWeight,
+        cardHovering ? cardPointerLightX : 50 + offsetX * 6,
+        cardHovering ? cardPointerLightY : 50 + offsetY * 6
+      );
+    }
+    requestAnimationFrame(animateCard);
+  }
+
+  requestAnimationFrame(animateCard);
+
+  var SITE_LANG = ((navigator.language || navigator.userLanguage || 'en').toLowerCase().indexOf('es') === 0) ? 'es' : 'en';
+  var UI_TEXT = SITE_LANG === 'es' ? {
+    titles: ["mis gustos", "antipublic", "presage"],
+    catAnchor: "elao de limon lomejor del mundoo",
+    posts: "publicaciones",
+    followers: "seguidores",
+    following: "seguidos",
+    subscribers: "suscriptores",
+    video: "video",
+    follow: "seguir",
+    youtubeTitle: "YouTube video",
+    credit: 'Presage 2026, gracias a <a href="https://prynts.net" target="_blank" rel="noopener noreferrer">Prynts</a> por el codigo'
+  } : {
+    titles: ["my tastes", "antipublic", "presage"],
+    catAnchor: "lemon ice cream best thing in the worlddd",
+    posts: "posts",
+    followers: "followers",
+    following: "following",
+    subscribers: "subscribers",
+    video: "video",
+    follow: "follow",
+    youtubeTitle: "YouTube video",
+    credit: 'Presage 2026, thanks to <a href="https://prynts.net" target="_blank" rel="noopener noreferrer">Prynts</a> for the code'
+  };
+  document.documentElement.lang = SITE_LANG;
+
+  var README_TEXT = document.getElementById('readme-source-' + SITE_LANG).textContent
+    .replace(/^\n/, '')
+    .replace(/\n$/, '');
+
+  var HIGHLIGHTS = [
+    "P R E S A G I O S"
+  ];
+  var IDENTITY_LINES = [
+    "A B C D E F G H I",
+    "P R E S A G I O S",
+    "J K L M N O P Q R",
+    "S T U V W X Y Z"
+  ];
+  var DIVIDER_LINES = ["━─━────༺༻────━─━"];
+  var TITLE_LINES = UI_TEXT.titles;
+  var CAT_ANCHOR_TEXT = UI_TEXT.catAnchor;
+  var TYPE_STEP_MS = 3;
+  var LEFT_TITLE_SEQUENCE = ["⭑.₊", "⊹₊⊹", "₊⊹.", ".⊹₊"];
+  var RIGHT_TITLE_SEQUENCE = ["₊.⭑", "⊹₊⊹", "⊹.₊", "₊.⊹"];
+  var titleSequenceIndex = 0;
+  var titleSequenceTimer = null;
+  function esc(s){
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  renderText(README_TEXT);
+
+  function renderText(raw){
+    textEl.innerHTML = '';
+
+    var frag = document.createDocumentFragment();
+    var spans = [];
+    var highlightChars = [];
+    var lines = raw.split('\n');
+    var dividerOrdinal = 0;
+
+    lines.forEach(function(line, lineIndex){
+      var lineWrapper = document.createElement('span');
+      lineWrapper.setAttribute('data-char-index', String(spans.length));
+      if (IDENTITY_LINES.indexOf(line) >= 0){
+        lineWrapper.className = 'identity-line';
+      }
+      if (DIVIDER_LINES.indexOf(line) >= 0){
+        lineWrapper.className = dividerOrdinal === 0 ? 'divider-line header-divider' : 'divider-line';
+        dividerOrdinal++;
+      }
+      if (TITLE_LINES.indexOf(line) >= 0){
+        lineWrapper.className = 'title-line';
+      }
+      if (line === CAT_ANCHOR_TEXT){
+        lineWrapper.className = 'cat-anchor';
+      }
+      if (
+        line.trim() &&
+        IDENTITY_LINES.indexOf(line) < 0 &&
+        DIVIDER_LINES.indexOf(line) < 0 &&
+        TITLE_LINES.indexOf(line) < 0
+      ){
+        lineWrapper.classList.add('body-line');
+      }
+
+      var highlightText = HIGHLIGHTS.find(function(text){
+        return line.indexOf(text) >= 0;
+      });
+      var highlightStart = highlightText ? line.indexOf(highlightText) : -1;
+      var highlightEnd = highlightText ? highlightStart + highlightText.length : -1;
+      var highlightWrapper = null;
+
+      for (var i = 0; i < line.length; i++){
+        if (i === highlightStart){
+          highlightWrapper = document.createElement('span');
+          highlightWrapper.className = 'hl';
+          lineWrapper.appendChild(highlightWrapper);
+        }
+
+        var span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = line[i];
+
+        if (highlightWrapper && i >= highlightStart && i < highlightEnd){
+          highlightWrapper.appendChild(span);
+          highlightChars.push(span);
+        } else {
+          lineWrapper.appendChild(span);
+        }
+        spans.push(span);
+
+        if (i === highlightEnd - 1){
+          highlightWrapper = null;
+        }
+      }
+
+      frag.appendChild(lineWrapper);
+      if (lineIndex < lines.length - 1){
+        frag.appendChild(document.createElement('br'));
+      }
+    });
+    textEl.appendChild(frag);
+    startTitleSequence();
+    revealFixedMedia();
+    appendAntipublicMedia(false);
+
+    identityCopyEl.innerHTML = '';
+    Array.prototype.slice.call(textEl.querySelectorAll('.identity-line'), 0, 4).forEach(function(line){
+      identityCopyEl.appendChild(line.cloneNode(true));
+    });
+
+    var stepMs = TYPE_STEP_MS;
+    spans.forEach(function(span, idx){
+      setTimeout(function(){
+        span.classList.add('in');
+      }, idx * stepMs);
+    });
+
+    Array.prototype.forEach.call(identityCopyEl.querySelectorAll('.char'), function(span, idx){
+      setTimeout(function(){
+        span.classList.add('in');
+      }, idx * stepMs);
+    });
+
+    highlightChars.forEach(function(span, idx){
+      setTimeout(function(){
+        span.classList.add('selected');
+      }, 100 + idx * 20);
+    });
+
+    Array.prototype.forEach.call(identityCopyEl.querySelectorAll('.hl .char'), function(span, idx){
+      setTimeout(function(){
+        span.classList.add('selected');
+      }, 100 + idx * 20);
+    });
+
+    var totalMs = spans.length * stepMs + 700;
+    setTimeout(function(){
+      var finalDividerOrdinal = 0;
+      var finalHTML = raw.split('\n').map(function(line){
+        var lineHTML = esc(line);
+        lineHTML = lineHTML.replace('www.antipublic.org/aboutus', '<a class="plain-link" href="https://www.antipublic.org/aboutus" contenteditable="false">www.antipublic.org/aboutus</a>');
+        HIGHLIGHTS.forEach(function(text){
+          lineHTML = lineHTML.replace(
+            esc(text),
+            '<span class="hl hl-complete">' + esc(text) + '</span>'
+          );
+        });
+        if (IDENTITY_LINES.indexOf(line) >= 0){
+          lineHTML = '<span class="identity-line">' + lineHTML + '</span>';
+        }
+        if (DIVIDER_LINES.indexOf(line) >= 0){
+          lineHTML = '<span class="' + (finalDividerOrdinal === 0 ? 'divider-line header-divider' : 'divider-line') + '">' + lineHTML + '</span>';
+          finalDividerOrdinal++;
+        }
+        if (TITLE_LINES.indexOf(line) >= 0){
+          lineHTML = '<span class="title-line">' + lineHTML + '</span>';
+        }
+        if (line === CAT_ANCHOR_TEXT){
+          lineHTML = '<span class="cat-anchor">' + lineHTML + '</span>';
+        }
+        if (
+          line.trim() &&
+          IDENTITY_LINES.indexOf(line) < 0 &&
+          DIVIDER_LINES.indexOf(line) < 0 &&
+          TITLE_LINES.indexOf(line) < 0
+        ){
+          lineHTML = '<span class="body-line">' + lineHTML + '</span>';
+        }
+        return lineHTML;
+      }).join('\n');
+
+      textEl.innerHTML = finalHTML;
+      updateTitleSequence();
+      appendAntipublicMedia(true);
+    }, totalMs);
+  }
+
+  function updateTitleSequence(){
+    Array.prototype.forEach.call(textEl.querySelectorAll('.title-line'), function(title){
+      title.setAttribute('data-left', LEFT_TITLE_SEQUENCE[titleSequenceIndex]);
+      title.setAttribute('data-right', RIGHT_TITLE_SEQUENCE[titleSequenceIndex]);
+    });
+  }
+
+  function startTitleSequence(){
+    updateTitleSequence();
+    if (titleSequenceTimer) return;
+    titleSequenceTimer = setInterval(function(){
+      titleSequenceIndex = (titleSequenceIndex + 1) % LEFT_TITLE_SEQUENCE.length;
+      updateTitleSequence();
+    }, 620);
+  }
+
+  function revealSequenceElement(element, anchor, offset, immediate){
+    if (!element) return;
+    element.classList.add('sequence-media');
+    if (immediate){
+      element.classList.add('sequence-visible');
+      return;
+    }
+    var charIndex = anchor ? Number(anchor.getAttribute('data-char-index') || 0) : 0;
+    setTimeout(function(){
+      element.classList.add('sequence-visible');
+    }, charIndex * TYPE_STEP_MS + (offset || 0));
+  }
+
+  function revealFixedMedia(){
+    revealSequenceElement(document.querySelector('.readme-signature'), null, 40, false);
+    revealSequenceElement(cardSlot, null, 120, false);
+  }
+
+  function appendAntipublicMedia(immediate){
+    var titleImage = document.createElement('img');
+    var mediaPair = document.createElement('div');
+    var catFrame = document.createElement('div');
+    var catImage = document.createElement('img');
+    var chromaFrame = document.createElement('div');
+    var chromaImage = document.createElement('img');
+    var footerImage = document.createElement('img');
+    var instagramWidget = document.createElement('div');
+    var youtubeWidget = document.createElement('div');
+    var widgetsRow = document.createElement('div');
+    var antipublicTitle = null;
+    var presageTitle = null;
+    var catAnchor = textEl.querySelector('.cat-anchor');
+    var dividerElements = textEl.querySelectorAll('.divider-line');
+
+    Array.prototype.forEach.call(textEl.querySelectorAll('.title-line'), function(title){
+      if (title.textContent.trim() === 'antipublic') antipublicTitle = title;
+      if (title.textContent.trim() === 'presage') presageTitle = title;
+      if (immediate){
+        title.classList.add('decorations-visible');
+      } else {
+        var titleIndex = Number(title.getAttribute('data-char-index') || 0);
+        setTimeout(function(){
+          title.classList.add('decorations-visible');
+        }, titleIndex * TYPE_STEP_MS);
+      }
+    });
+
+    if (antipublicTitle){
+      titleImage.className = 'antipublic-title-art';
+      titleImage.src = 'titulo antipublic.svg';
+      titleImage.alt = '';
+      titleImage.setAttribute('contenteditable', 'false');
+      antipublicTitle.parentNode.insertBefore(titleImage, antipublicTitle.nextSibling);
+      revealSequenceElement(titleImage, antipublicTitle, 80, immediate);
+    }
+
+    if (catAnchor){
+      mediaPair.className = 'media-pair';
+      mediaPair.setAttribute('contenteditable', 'false');
+      catFrame.className = 'cat-frame';
+      catFrame.setAttribute('contenteditable', 'false');
+      catImage.className = 'cat-photo';
+      catImage.src = 'gato.jpg';
+      catImage.alt = '';
+      catImage.draggable = false;
+      catImage.setAttribute('contenteditable', 'false');
+      catFrame.appendChild(catImage);
+
+      chromaFrame.className = 'chroma-frame';
+      chromaFrame.setAttribute('contenteditable', 'false');
+      chromaImage.className = 'chroma-animation';
+      chromaImage.src = 'chroma-alpha.webp';
+      chromaImage.alt = '';
+      chromaImage.draggable = false;
+      chromaImage.setAttribute('contenteditable', 'false');
+      chromaFrame.appendChild(chromaImage);
+
+      mediaPair.appendChild(catFrame);
+      mediaPair.appendChild(chromaFrame);
+      catAnchor.parentNode.insertBefore(mediaPair, catAnchor);
+      revealSequenceElement(mediaPair, catAnchor, 0, immediate);
+    }
+
+    footerImage.className = 'antipublic-footer-art';
+    footerImage.src = 'antipublic.png';
+    footerImage.alt = '';
+    footerImage.setAttribute('contenteditable', 'false');
+    if (dividerElements.length){
+      dividerElements[dividerElements.length - 1].parentNode.insertBefore(footerImage, dividerElements[dividerElements.length - 1]);
+      revealSequenceElement(footerImage, dividerElements[dividerElements.length - 1], 0, immediate);
+    } else {
+      textEl.appendChild(footerImage);
+      revealSequenceElement(footerImage, null, 0, immediate);
+    }
+
+    if (presageTitle){
+      widgetsRow.className = 'social-widgets-row';
+      widgetsRow.setAttribute('contenteditable', 'false');
+
+      instagramWidget.className = 'instagram-widget';
+      instagramWidget.setAttribute('contenteditable', 'false');
+      instagramWidget.innerHTML = '<div class="instagram-profile"><div class="instagram-avatar-ring"><img class="instagram-avatar" src="instagram-avatar.webp" alt=""></div><div><div class="instagram-name-row"><span>prsge</span><img class="instagram-verified" src="verificado ig.svg" alt="verificado"></div><div class="instagram-real-name">luca</div><div class="instagram-bio">presagios@icloud.com</div></div></div><div class="instagram-stats"><div class="instagram-stat"><strong>0</strong><span>' + UI_TEXT.posts + '</span></div><div class="instagram-stat"><strong>5174</strong><span>' + UI_TEXT.followers + '</span></div><div class="instagram-stat"><strong>509</strong><span>' + UI_TEXT.following + '</span></div></div><a class="instagram-follow" href="https://www.instagram.com/prsge/" target="_blank" rel="noopener noreferrer">' + UI_TEXT.follow + '</a>';
+
+      youtubeWidget.className = 'youtube-widget';
+      youtubeWidget.setAttribute('contenteditable', 'false');
+      youtubeWidget.innerHTML = '<div class="instagram-profile"><img class="youtube-avatar" src="youtube.jpg" alt=""><div><div class="instagram-name-row"><span>antipublico</span></div><div class="instagram-real-name">@antipublico</div><div class="instagram-bio">虚空にいるのはどんな感じなのか考えたことはありますか？</div></div></div><div class="instagram-stats"><div class="instagram-stat"><strong>53.3 K</strong><span>' + UI_TEXT.subscribers + '</span></div><div class="instagram-stat"><strong>1</strong><span>' + UI_TEXT.video + '</span></div></div><a class="instagram-follow" href="https://www.youtube.com/@antipublico" target="_blank" rel="noopener noreferrer">' + UI_TEXT.follow + '</a>';
+
+      widgetsRow.appendChild(instagramWidget);
+      widgetsRow.appendChild(youtubeWidget);
+
+      presageTitle.parentNode.insertBefore(widgetsRow, presageTitle.nextSibling);
+      revealSequenceElement(instagramWidget, presageTitle, 100, immediate);
+      revealSequenceElement(youtubeWidget, presageTitle, 280, immediate);
+
+      var videoEmbed = document.createElement('div');
+      videoEmbed.className = 'youtube-embed-wrap';
+      videoEmbed.setAttribute('contenteditable', 'false');
+      videoEmbed.innerHTML = '<div class="youtube-embed-frame"><iframe src="https://www.youtube.com/embed/uiF4BRZ6TSQ?rel=0" title="' + UI_TEXT.youtubeTitle + '" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+      widgetsRow.parentNode.insertBefore(videoEmbed, widgetsRow.nextSibling);
+      revealSequenceElement(videoEmbed, presageTitle, 420, immediate);
+
+      var finalDivider = document.createElement('span');
+      finalDivider.className = 'divider-line';
+      finalDivider.textContent = '━─━────༺༻────━─━';
+      finalDivider.setAttribute('contenteditable', 'false');
+
+      var credit = document.createElement('span');
+      credit.className = 'readme-credit';
+      credit.innerHTML = UI_TEXT.credit;
+      credit.setAttribute('contenteditable', 'false');
+
+      videoEmbed.parentNode.insertBefore(finalDivider, videoEmbed.nextSibling);
+      finalDivider.parentNode.insertBefore(credit, finalDivider.nextSibling);
+      revealSequenceElement(finalDivider, presageTitle, 520, immediate);
+      revealSequenceElement(credit, presageTitle, 620, immediate);
+    }
+  }
+
+  var blurAmountEl = document.getElementById('motion-blur-amount');
+  var lastTop = 0;
+  var lastTime = performance.now();
+  var blurTimeout = null;
+  var filterOn = false;
+
+  pageEl.addEventListener('scroll', function(){
+    var now = performance.now();
+    var dt = Math.max(now - lastTime, 1);
+    var dy = Math.abs(pageEl.scrollTop - lastTop);
+    var velocity = dy / dt;
+
+    var blur = Math.min(velocity * 4, 14);
+
+    if (blur > 0.15){
+      if (!filterOn){
+        pageEl.style.filter = 'url(#motion-blur)';
+        filterOn = true;
+      }
+      blurAmountEl.setAttribute('stdDeviation', '0 ' + blur.toFixed(2));
+    }
+
+    lastTop = pageEl.scrollTop;
+    lastTime = now;
+
+    clearTimeout(blurTimeout);
+    blurTimeout = setTimeout(function(){
+      blurAmountEl.setAttribute('stdDeviation', '0 0');
+      pageEl.style.filter = 'none';
+      filterOn = false;
+    }, 100);
+  }, { passive: true });
+
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    var blocked =
+      k === 'F12' ||
+      (e.ctrlKey && e.shiftKey && (k === 'I' || k === 'i')) ||
+      (e.ctrlKey && e.shiftKey && (k === 'J' || k === 'j')) ||
+      (e.ctrlKey && e.shiftKey && (k === 'C' || k === 'c')) ||
+      (e.metaKey && e.altKey && (k === 'I' || k === 'i')) ||
+      (e.ctrlKey && (k === 'U' || k === 'u'));
+
+    if (blocked){
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true);
+
+  document.addEventListener('contextmenu', function(e){
+    e.preventDefault();
+  });
+
+})();
+</script>
+
+<script>
+  (function(){
+    var root = document.documentElement;
+
+    function updateViewport(){
+      var viewport = window.visualViewport;
+      var width = viewport ? viewport.width : window.innerWidth;
+      var height = viewport ? viewport.height : window.innerHeight;
+      var left = viewport ? viewport.offsetLeft : 0;
+      var top = viewport ? viewport.offsetTop : 0;
+
+      root.style.setProperty('--viewport-width', width + 'px');
+      root.style.setProperty('--viewport-height', height + 'px');
+      root.style.setProperty('--viewport-left', left + 'px');
+      root.style.setProperty('--viewport-top', top + 'px');
+      root.style.setProperty('--viewport-inset-x', width * 0.1 + 'px');
+      root.style.setProperty('--viewport-inset-y', height * 0.1 + 'px');
+    }
+
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+    window.addEventListener('orientationchange', updateViewport);
+    if (window.visualViewport){
+      window.visualViewport.addEventListener('resize', updateViewport);
+      window.visualViewport.addEventListener('scroll', updateViewport);
+    }
+  })();
+</script>
+
+
+<script>
+  (function(){
+    var mediaToPreload = [
+      'firma.png?v=2',
+      'cursor.png',
+      'link.png',
+      'titulo antipublic.svg',
+      'gato.jpg',
+      'chroma-alpha.webp',
+      'antipublic.png',
+      'instagram-avatar.webp',
+      'verificado ig.svg',
+      'youtube.jpg'
+    ];
+
+    function preloadImage(src){
+      return new Promise(function(resolve){
+        var img = new Image();
+        img.onload = resolve;
+        img.onerror = resolve;
+        img.src = src;
+      });
+    }
+
+    function hideLoader(){
+      var loader = document.getElementById('loader-screen');
+      document.documentElement.classList.remove('loading');
+      if (loader) loader.classList.add('hidden');
+      setTimeout(function(){
+        if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
+      }, 260);
+    }
+
+    var started = Date.now();
+    Promise.all(mediaToPreload.map(preloadImage)).then(function(){
+      var wait = Math.max(0, 520 - (Date.now() - started));
+      setTimeout(hideLoader, wait);
+    });
+
+    setTimeout(hideLoader, 3500);
+  })();
+</script>
+
+</body>
+</html>
