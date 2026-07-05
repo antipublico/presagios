@@ -308,54 +308,14 @@
     transform: translateX(-50%);
   }
 
-  .cat-photo,
-  .chroma-animation{
-    width: 190px;
-    height: 190px;
+  .windows-demo-host{
+    width: min(855px,96%);
+    height: 618px;
     display: block;
-    margin: 4px auto;
-    object-fit: cover;
-  }
-
-  .cat-photo{
-    filter: grayscale(1) contrast(1.08);
-  }
-
-  .chroma-animation{
-    filter: none;
-  }
-
-  .media-pair{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    margin: 6px auto;
-  }
-
-  .cat-frame,
-  .chroma-frame{
-    width: max-content;
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    color: #000;
-    font-family: Consolas, "Courier New", monospace;
-    line-height: 1;
-    text-align: center;
-  }
-
-  .cat-frame::before,
-  .chroma-frame::before{
-    content: "┏━━━━━━━━ ★ ━━━━━━━━┓";
-  }
-
-  .cat-frame::after,
-  .chroma-frame::after{
-    content: "┗━━━━━━━━ ★ ━━━━━━━━┛";
+    position: relative;
+    margin: 24px auto 30px;
+    overflow: visible;
+    container-type: inline-size;
   }
 
   .antipublic-footer-art{
@@ -958,23 +918,14 @@
       font-size: clamp(11px, 3.15vw, 14px);
       line-height: 1.4;
       box-sizing: border-box;
-      padding-top: 168px;
+      padding-top: 148px;
     }
 
-    .media-pair{
-      gap: 8px;
-    }
-
-    .cat-frame,
-    .chroma-frame{
-      min-width: 0;
-      font-size: clamp(7px, 2.1vw, 10px);
-    }
-
-    .cat-photo,
-    .chroma-animation{
-      width: min(39vw, 160px);
-      height: min(39vw, 160px);
+    .windows-demo-host{
+      width: min(100%, 855px);
+      max-width: none;
+      margin: 18px auto 24px;
+      overflow: visible;
     }
 
     .readme-card-slot{
@@ -1017,6 +968,43 @@
 
     .antipublic-footer-art{
       width: 100%;
+    }
+
+    html,
+    body{
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .frame{
+      position: relative;
+      min-height: 100dvh;
+      height: auto;
+      overflow: visible;
+    }
+
+    .page-outer,
+    .page{
+      height: auto;
+      min-height: 100%;
+      overflow: visible;
+    }
+
+    .windows-demo-host{
+      z-index: 50;
+      overflow: visible;
+      isolation: isolate;
+    }
+
+    .windows-stage{
+      transform: none !important;
+      transform-origin: top left !important;
+    }
+
+    .page,
+    .page-outer,
+    .windows-demo-host{
+      overflow-x: visible;
     }
   }
 
@@ -1116,21 +1104,18 @@ P R E S A G I O S
 J K L M N O P Q R
 S T U V W X Y Z
 ━─━────༺༻────━─━
-m llamo presage y hago kosas piolas en web cuando m da la gana si, cualkier cosa ahi necesiten algo pa su web o lo que sea me mandan mail a antipublico@icloud.com o me escriben en ig: prsge
-
+Todo gran silencio deja un presagio detrás de sí. No porque anuncie el futuro, sino porque convierte el presente en algo imposible de olvidar.
 ━─━────༺༻────━─━
-mis gustos
-m gustan la musica, los gatos, black ops 6, geometry dash, la nicotina y las tetas. tengo 9 gatos porq son el mejor ser vivo del mundo si. me encanta el color blanco y todo lo q tenga q ver con el, amo el concepto del ether... me gusta colaborar con gente k hace arte y aprender de ellos, inspirarme y ayudar. mis artistas favs son Edward skeletrix y mi grupo de kpop fav es newjeans ok que vuelvan. mis juegos fav son stalker 2 y tarkov y mi pelicula fav es stay 2005
-
-elao de limon lomejor del mundoo
+bout me
+m llamo presage y hago kosas piolas en web cuando m da la gana si, cualkier cosa ahi necesiten algo pa su web o lo que sea me mandan mail a antipublico@icloud.com o me escriben en ig: prsge. Me gustan la música, los gatos, Black Ops 6, Geometry Dash, la nicotina y las tetas. Tengo 9 gatos porq son el mejor ser vivo del mundo, sí. Me encanta el color blanco y todo lo q tenga q ver con él, amo el concepto del ether... Me gusta colaborar con gente q hace arte y aprender de ellos, inspirarme y ayudar. Mis artistas favs son Edward Skeletrix y mi grupo de kpop fav es NewJeans, ok q vuelvan. Mis juegos fav son Stalker 2 y Tarkov y mi película fav es Stay 2005.
 
 ━─━────༺༻────━─━
 antipublic
-hace masomenos 1 año y algo m dio el aburrimiento mal y m puse a aprender a como hacer diseños en photoshop pq queria expresar algo o no se simplemente hacer algo bonito, pero me dio paja pq no me salia pero viendo pinterest vi cosas de paginas de la epoca del 2002-2005 metro y dije owao que piola voy a probar y asi estuve meses haciendo y puliendo cosas hasta llegar a terminar antipublic.org con unos amigos, mas allá de lo bueno q estuvo todo el proceso m encantó ayudar a gente con sus proyectos y conocer artistas nuevos pa trabajar. si quieren saber mas de antipublic o lo que hacemos pueden ir a www.antipublic.org/aboutus
+Hace más o menos 1 año y algo m dio el aburrimiento mal y m puse a aprender a cómo hacer diseños en Photoshop pq quería expresar algo o no sé, simplemente hacer algo bonito, pero me dio paja pq no me salía. Viendo Pinterest vi cosas de páginas de la época del 2002-2005 Metro y dije owao qué piola voy a probar, y así estuve meses haciendo y puliendo cosas hasta llegar a terminar antipublic.org con unos amigos. Más allá de lo bueno q estuvo todo el proceso, m encantó ayudar a gente con sus proyectos y conocer artistas nuevos pa trabajar. Si quieren saber más de antipublic o lo que hacemos pueden ir a www.antipublic.org/aboutus
 
-todavia sigo con ese hobby de programar cuando estoy aburrido o se me ocurre algo y tengo varios proyectos importantes abandonados por paja pero apenas me pegue la creatividad otra vez voy a seguir.
+Todavía sigo con ese hobby de programar cuando estoy aburrido o se me ocurre algo y tengo varios proyectos importantes abandonados por paja, pero apenas me pegue la creatividad otra vez voy a seguir.
 
-mi sueño es poder hacer algo realmente util para mucha gente en lugar de para un grupo o persona concretos asi k ando ahi viendo que es lo mejor.
+Mi sueño es poder hacer algo realmente útil para mucha gente en lugar de para un grupo o persona concretos, así k ando ahí viendo qué es lo mejor.
 ━─━────༺༻────━─━
 presage
 
@@ -1144,26 +1129,1110 @@ P R E S A G I O S
 J K L M N O P Q R
 S T U V W X Y Z
 ━─━────༺༻────━─━
-my name is presage and i make cool stuff on the web whenever i feel like it. if anyone needs something for their website or whatever, send me an email at antipublico@icloud.com or message me on ig: prsge
-
+Every great silence leaves an omen behind. Not because it announces the future, but because it turns the present into something impossible to forget.
 ━─━────༺༻────━─━
-my tastes
-i like music, cats, black ops 6, geometry dash, nicotine and boobs. i have 9 cats because they are the best living thing in the world yes. i love the color white and everything related to it, i love the concept of ether... i like collaborating with people who make art and learning from them, getting inspired and helping. my favorite artists are Edward skeletrix and my favorite kpop group is newjeans ok let them come back. my favorite games are stalker 2 and tarkov and my favorite movie is stay 2005
-
-lemon ice cream best thing in the worlddd
+bout me
+my name is presage and i make cool stuff on the web whenever i feel like it. if anyone needs something for their website or whatever, send me an email at antipublico@icloud.com or message me on ig: prsge. I like music, cats, Black Ops 6, Geometry Dash, nicotine and boobs. I have 9 cats because they are the best living thing in the world, yes. I love the color white and everything related to it, I love the concept of ether... I like collaborating with people who make art and learning from them, getting inspired and helping. My fav artist is Edward Skeletrix and my fav kpop group is NewJeans, ok let them come back. My fav games are Stalker 2 and Tarkov and my fav movie is Stay 2005.
 
 ━─━────༺༻────━─━
 antipublic
-about 1 year and a bit ago boredom hit me bad and i started learning how to make designs in photoshop because i wanted to express something or idk just make something pretty, but i got lazy because i couldn't get it right. then while looking at pinterest i saw pages from the 2002-2005 metro era and thought wow that's cool i'm gonna try it, and i spent months making and polishing things until i finished antipublic.org with some friends. beyond how good the whole process was, i loved helping people with their projects and meeting new artists to work with. if you want to know more about antipublic or what we do, you can go to www.antipublic.org/aboutus
+About 1 year and a bit ago boredom hit me bad and I started learning how to make designs in Photoshop because I wanted to express something or idk, just make something pretty, but I got lazy because I couldn't get it right. Then while looking at Pinterest I saw pages from the 2002-2005 Metro era and thought wow that's cool I'm gonna try it, and I spent months making and polishing things until I finished antipublic.org with some friends. Beyond how good the whole process was, I loved helping people with their projects and meeting new artists to work with. If you want to know more about antipublic or what we do, you can go to www.antipublic.org/aboutus
 
-i still keep that programming hobby whenever i'm bored or come up with something, and i have several important projects abandoned out of laziness, but as soon as creativity hits me again i'll continue.
+I still keep that programming hobby whenever I'm bored or come up with something, and I have several important projects abandoned out of laziness, but as soon as creativity hits me again I'll continue.
 
-my dream is to make something actually useful for many people instead of for one specific group or person, so i'm there trying to see what's best.
+My dream is to make something actually useful for many people instead of for one specific group or person, so I'm there trying to see what's best.
 ━─━────༺༻────━─━
 presage
 
 
 </script>
+
+  <template id="windows-demo-template">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .windows-stage {
+            width: 855px;
+            height: 618px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: transparent;
+            overflow: visible;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            line-height: normal;
+            letter-spacing: normal;
+            white-space: normal;
+            text-align: left;
+        }
+
+        .glass-window {
+            width: 855px;
+            height: 618px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 8px;
+            overflow: hidden;
+            user-select: none;
+            border: 1.7px solid #333333;
+            box-shadow: 
+                0 0 0 1px rgba(0, 0, 0, 0.2),
+                0 4px 16px rgba(0, 0, 0, 0.35),
+                0 8px 32px rgba(0, 0, 0, 0.25),
+                0 16px 64px rgba(0, 0, 0, 0.15);
+            filter: grayscale(1) contrast(1.1);
+        }
+
+        .glass-content {
+            position: absolute;
+            top: 1.4px;
+            left: 1.4px;
+            right: 1.4px;
+            bottom: 1.4px;
+            background: rgba(105, 105, 105, 0.38);
+            backdrop-filter: blur(1.3px);
+            -webkit-backdrop-filter: blur(1.3px);
+            border-radius: 5.1px;
+            z-index: 1;
+        }
+
+        .white-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 1.5px solid #e8e8e8;
+            border-radius: 6.5px;
+            z-index: 5;
+            pointer-events: none;
+            clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 20px, calc(100% - 120px) 20px, calc(100% - 120px) 0%, 0% 0%);
+        }
+        
+        .glass-streaks {
+            position: absolute;
+            top: 1.4px;
+            left: 1.4px;
+            right: 1.4px;
+            bottom: 1.4px;
+            border-radius: 5.1px;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .stroke-top-right {
+            position: absolute;
+            top: -150px;
+            right: -70px;
+            width: 140px;
+            height: 950px;
+            background: rgba(255, 255, 255, 0.05);
+            transform: rotate(-35deg);
+            filter: blur(8px);
+            pointer-events: none;
+        }
+        
+        .stroke-bottom-left {
+            position: absolute;
+            top: -150px;
+            left: -70px;
+            width: 150px;
+            height: 950px;
+            background: rgba(255, 255, 255, 0.06);
+            transform: rotate(-35deg);
+            filter: blur(8px);
+            pointer-events: none;
+        }
+        
+        .stroke-middle {
+            position: absolute;
+            top: -150px;
+            left: 420px;
+            width: 100px;
+            height: 950px;
+            background: rgba(255, 255, 255, 0.20);
+            transform: rotate(-35deg);
+            filter: blur(4px);
+            pointer-events: none;
+        }
+        
+        .stroke-left-middle {
+            position: absolute;
+            top: -150px;
+            left: 220px;
+            width: 90px;
+            height: 950px;
+            background: rgba(255, 255, 255, 0.12);
+            transform: rotate(-35deg);
+            filter: blur(5px);
+            pointer-events: none;
+        }
+        
+        .stroke-top-right-corner {
+            position: absolute;
+            top: -150px;
+            left: 750px;
+            width: 120px;
+            height: 950px;
+            background: rgba(255, 255, 255, 0.06);
+            transform: rotate(-35deg);
+            filter: blur(4px);
+            pointer-events: none;
+        }
+        
+        .stroke-bottom-left-duplicate {
+            position: absolute;
+            bottom: -120px;
+            left: 30px;
+            width: 90px;
+            height: 650px;
+            background: rgba(255, 255, 255, 0.06);
+            transform: rotate(-35deg);
+            filter: blur(4px);
+            pointer-events: none;
+        }
+        
+        .stroke-bottom-left-small {
+            position: absolute;
+            top: -150px;
+            left: 70px;
+            width: 70px;
+            height: 950px;
+            background: rgba(255, 255, 255, 0.08);
+            transform: rotate(-35deg);
+            filter: blur(5px);
+            pointer-events: none;
+        }
+        
+        .corner-glow-top-left {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: 420px;
+            height: 320px;
+            background: radial-gradient(ellipse at 2px 2px, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 20%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.1) 60%, transparent 85%);
+            border-radius: 12px 0 200px 0;
+            filter: blur(3px);
+            pointer-events: none;
+        }
+        
+        .corner-glow-top-right {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 420px;
+            height: 320px;
+            background: radial-gradient(ellipse at calc(100% - 2px) 2px, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 20%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.1) 60%, transparent 85%);
+            border-radius: 0 12px 0 200px;
+            filter: blur(3px);
+            pointer-events: none;
+        }
+
+        
+        .window-title {
+            position: absolute;
+            top: 6px;
+            left: 15px;
+            color: white;
+            font-size: 13px;
+            font-weight: normal;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+            z-index: 150;
+            pointer-events: none;
+        }
+
+        
+        .window-title-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        #button-wrap {
+            width: auto;
+            border-width: 0px 1px 1px 1px;
+            border-style: solid;
+            border-color: rgba(0,0,0,0.8);
+            box-shadow: 0px 1px 0px rgba(255,255,255,0.9), -1px 0px 0px rgba(255,255,255,0.9), 1px 0px 0px rgba(255,255,255,0.9);
+            border-radius: 0px 0px 5px 5px;
+            overflow: visible;
+            float: right;
+            margin: 1px 13px 0px;
+            pointer-events: all;
+            z-index: 101;
+        }
+
+        #button-wrap .bt {
+            width: 26px;
+            height: 17px;
+            background: linear-gradient(to top, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(255,255,255,0.3) 51%, rgba(255,255,255,0.4) 100%);
+            border-right: 1px solid rgba(0,0,0,0.8);
+            box-shadow: inset 1px 0px 0px rgba(255,255,255,0.4), inset -1px 0px 0px rgba(255,255,255,0.4), inset 0px 1px 0px rgba(255,255,255,0.4), inset 0px -1px 0px rgba(255,255,255,0.4);
+            position: relative;
+            float: right;
+            display: inline;
+            cursor: pointer;
+        }
+
+        #button-wrap .bt::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            background: linear-gradient(to bottom, #06FEFB 0%, #176CA2 50%, #176AA2 51%, #A6CFEA 100%);
+            box-shadow: inset 0px 1px 0px #fff, 0px -1px 2px #06FEFB, 0px 2px 5px #06FEFB, 0px 2px 10px #06FEFB;
+            transition: opacity 0.15s ease-in-out;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #button-wrap .bt.close {
+            width: 45px;
+            background: linear-gradient(to top, #D27464 0%, #A21A00 50%, #D17C6C 51%, #E5A296 100%);
+            border-radius: 0px 0px 4px 0px;
+            box-shadow: inset 0px 1px 0px rgba(255,255,255,0.7), inset 0px 0px 1px #fff;
+            border-right: none;
+        }
+
+        #button-wrap .bt.close:before {
+            content: "x";
+            line-height: 15px;
+            font: bold 14px Verdana, Arial, Sans-Serif;
+            color: #fff;
+            text-shadow: 0px 0px 2px #000;
+            position: absolute;
+            top: -2px;
+            left: 18px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        #button-wrap .bt.minimize {
+            border-radius: 0px 0px 0px 4px;
+        }
+
+        #button-wrap .bt.minimize:before {
+            content: "";
+            width: 8px;
+            height: 3px;
+            background: #fff;
+            box-shadow: 0px 0px 1px #000;
+            position: absolute;
+            bottom: 5px;
+            left: 9px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        #button-wrap .bt.maximize:before {
+            content: "";
+            width: 6px;
+            height: 4px;
+            border: 2px solid #fff;
+            box-shadow: 0px 0px 1px #000, inset 0px 0px 1px #000;
+            position: absolute;
+            top: 5px;
+            left: 8px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        #button-wrap .bt.close::after {
+            background: linear-gradient(to bottom, #F7C1B9 0%, #A21A00 50%, #A5473B 51%, #D28C8E 100%);
+            box-shadow: inset 0px 1px 0px #fff, 0px 0px 2px yellow, 0px 0px 2px #F89B8B, 0px 2px 5px #F89B8B, 0px 2px 10px #F89B8B, 0px 1px 10px #F79B8B;
+        }
+
+        #button-wrap .bt:hover::after {
+            opacity: 1;
+        }
+
+        #button-wrap .bt:active {
+            opacity: 0.7;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        
+        .address-bar {
+            position: absolute;
+            top: 42px;
+            left: 100px;
+            right: 325px;
+            height: 24px;
+            z-index: 50;
+            pointer-events: all;
+        }
+
+        .address-bar-glass {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(248,251,255,0.8) 50%, rgba(240,245,250,0.85) 100%);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            border: 1.7px solid #333333;
+            box-shadow: 
+                0 0 0 1.5px #e8e8e8,
+                inset 0 1px 0 rgba(255,255,255,0.8),
+                0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .breadcrumb-nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            padding: 0 6px;
+            z-index: 51;
+        }
+
+        .breadcrumb-text {
+            display: flex;
+            align-items: center;
+            font-size: 11px;
+            color: #2c5aa0;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 1px;
+            transition: background-color 0.1s;
+        }
+
+        .breadcrumb-text:hover {
+            background: rgba(100,150,255,0.15);
+        }
+
+        
+        .search-bar {
+            position: absolute;
+            top: 42px;
+            right: 10px;
+            width: 293px;
+            height: 24px;
+            z-index: 55;
+            pointer-events: all;
+        }
+
+        .search-bar-glass {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(248,251,255,0.85) 100%);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            border: 1.7px solid #333333;
+            box-shadow: 
+                0 0 0 1.5px #e8e8e8,
+                inset 0 1px 0 rgba(255,255,255,0.8),
+                inset 2px 2px 4px rgba(0,0,0,0.05),
+                0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .search-text {
+            position: absolute;
+            top: 50%;
+            left: 26px;
+            right: 8px;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 11px;
+            z-index: 56;
+            pointer-events: none;
+        }
+
+        
+        .unified-content {
+            position: absolute;
+            top: 72px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            z-index: 40;
+            pointer-events: all;
+        }
+
+        .unified-content-glass {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(250,252,255,0.88) 0%, rgba(245,248,252,0.83) 100%);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            border: 1.7px solid #333333;
+            box-shadow: 
+                0 0 0 1.5px #e8e8e8,
+                inset 1px 1px 0 rgba(255,255,255,0.8),
+                0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        
+        .vertical-separator {
+            position: absolute;
+            top: 10px;
+            left: 230px;
+            bottom: 10px;
+            width: 1.2px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                rgba(160,170,180,0.4) 10%, 
+                rgba(140,150,165,0.5) 50%, 
+                rgba(160,170,180,0.4) 90%, 
+                transparent 100%);
+            box-shadow: 1px 0 0 rgba(255,255,255,0.25);
+            z-index: 41;
+        }
+
+        .horizontal-separator {
+            position: absolute;
+            top: 320px;
+            left: 240px;
+            right: 10px;
+            height: 1.2px;
+            background: linear-gradient(to right, 
+                transparent 0%, 
+                rgba(160,170,180,0.4) 5%, 
+                rgba(140,150,165,0.5) 50%, 
+                rgba(160,170,180,0.4) 95%, 
+                transparent 100%);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.25);
+            z-index: 41;
+        }
+
+        
+        .win7-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            margin-right: 0;
+            border-radius: 3px;
+            border: 1px solid #707070;
+            padding: 10px 25px;
+            background: #f2f2f2;
+            background: -moz-linear-gradient(top, #f2f2f2 0%, #ebebeb 42%, #dddddd 47%, #cfcfcf 100%);
+            background: -webkit-linear-gradient(top, #f2f2f2 0%, #ebebeb 42%, #dddddd 47%, #cfcfcf 100%);
+            background: linear-gradient(to bottom, #f2f2f2 0%, #ebebeb 42%, #dddddd 47%, #cfcfcf 100%);
+            transition: all 0.1s ease-in;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 12px;
+            color: #333;
+            cursor: pointer;
+            z-index: 42;
+            outline: none;
+            width: 169px;
+        }
+
+        .win7-btn:hover,
+        .win7-btn:focus {
+            outline: 0;
+            background: #eaf6fd;
+            background: -moz-linear-gradient(top, #eaf6fd 0%, #d9f0fc 42%, #bee6fd 47%, #bce5fc 58%, #a7d9f5 100%);
+            background: -webkit-linear-gradient(top, #eaf6fd 0%, #d9f0fc 42%, #bee6fd 47%, #bce5fc 58%, #a7d9f5 100%);
+            background: linear-gradient(to bottom, #eaf6fd 0%, #d9f0fc 42%, #bee6fd 47%, #bce5fc 58%, #a7d9f5 100%);
+            border: 1px solid #3C7FB1;
+            box-shadow: 0 0 3px #A7D9F5;
+        }
+
+        .win7-btn:active {
+            box-shadow: inset 0 -1px 6px rgba(0, 0, 0, 0.2), inset 0 -0.7em #BEE6FD, 0 0 3px #A7D9F5;
+        }
+
+        
+        .small-window {
+            position: absolute;
+            top: 20px;
+            left: 15.5px;
+            width: 200px;
+            height: 215px;
+            border-radius: 8px;
+            overflow: hidden;
+            user-select: none;
+            border: 0.5px solid #333333;
+            z-index: 60;
+        }
+
+        .small-window-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(75, 85, 95, 0.4);
+            backdrop-filter: blur(1.3px);
+            -webkit-backdrop-filter: blur(1.3px);
+            border-radius: 8px;
+            z-index: 201;
+        }
+
+        .small-window-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 0.5px solid #e8e8e8;
+            border-radius: 7px;
+            z-index: 205;
+            pointer-events: none;
+        }
+        
+        .small-window-streaks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px;
+            pointer-events: none;
+            z-index: 202;
+            overflow: hidden;
+        }
+
+        .small-stroke-top-right {
+            position: absolute;
+            top: -60px;
+            right: -30px;
+            width: 50px;
+            height: 320px;
+            background: rgba(255, 255, 255, 0.05);
+            transform: rotate(-35deg);
+            filter: blur(4px);
+            pointer-events: none;
+        }
+        
+        .small-stroke-bottom-left {
+            position: absolute;
+            top: -60px;
+            left: -30px;
+            width: 55px;
+            height: 320px;
+            background: rgba(255, 255, 255, 0.06);
+            transform: rotate(-35deg);
+            filter: blur(4px);
+            pointer-events: none;
+        }
+        
+        .small-stroke-middle {
+            position: absolute;
+            top: -60px;
+            left: 90px;
+            width: 40px;
+            height: 320px;
+            background: rgba(255, 255, 255, 0.18);
+            transform: rotate(-35deg);
+            filter: blur(2px);
+            pointer-events: none;
+        }
+        
+        .small-corner-glow-top-left {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: 120px;
+            height: 100px;
+            background: radial-gradient(ellipse at 2px 2px, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 20%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.1) 60%, transparent 85%);
+            border-radius: 8px 0 80px 0;
+            filter: blur(2px);
+            pointer-events: none;
+        }
+        
+        .small-corner-glow-top-right {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 120px;
+            height: 100px;
+            background: radial-gradient(ellipse at calc(100% - 2px) 2px, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 20%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.1) 60%, transparent 85%);
+            border-radius: 0 8px 0 80px;
+            filter: blur(2px);
+            pointer-events: none;
+        }
+
+        
+        .small-window-title {
+            position: absolute;
+            top: 6px;
+            left: 15px;
+            color: white;
+            font-size: 12px;
+            font-weight: normal;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+            z-index: 210;
+            pointer-events: none;
+            right: 15px;
+            height: 20px;
+        }
+
+        
+        .small-content-box {
+            position: absolute;
+            top: 25px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            z-index: 203;
+        }
+
+        .small-content-glass {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(250,252,255,0.88) 0%, rgba(245,248,252,0.83) 100%);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            border: 0.5px solid #333333;
+            box-shadow: 
+                0 0 0 0.5px #e8e8e8,
+                inset 0.5px 0.5px 0 rgba(255,255,255,0.8);
+        }
+        
+        
+        .media-placeholder-text {
+            position: absolute;
+            top: 297px;
+            left: 290px;
+            width: 480px;
+            z-index: 150;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 11px;
+            color: #333;
+            text-align: center;
+            pointer-events: none;
+        }
+        
+        
+        .small-favico {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 204;
+            pointer-events: none;
+        }
+        
+        
+        .text-area {
+            position: absolute;
+            top: 330px;
+            left: 250px;
+            right: 20px;
+            bottom: 60px;
+            z-index: 150;
+            pointer-events: all;
+        }
+        
+        .text-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 12px;
+            color: #333;
+            line-height: 1.4;
+            text-align: justify;
+            overflow-y: hidden;
+        }
+        
+        
+        .product-name {
+            position: absolute;
+            top: 240px;
+            left: 15px;
+            width: 200px;
+            z-index: 150;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c5aa0;
+            text-align: center;
+            pointer-events: none;
+        }
+        
+        .product-stock {
+            position: absolute;
+            top: 265px;
+            left: 15px;
+            width: 200px;
+            z-index: 150;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            color: #228B22;
+            text-align: center;
+            pointer-events: none;
+        }
+        
+        .product-price {
+            position: absolute;
+            top: 290px;
+            left: 15px;
+            width: 200px;
+            z-index: 150;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            color: #d27400;
+            text-align: center;
+            pointer-events: none;
+        }
+        
+        .product-options {
+            position: absolute;
+            top: 320px;
+            left: 15px;
+            width: 200px;
+            z-index: 150;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+            pointer-events: none;
+        }
+        
+        .product-website {
+            position: absolute;
+            top: 350px;
+            left: 15px;
+            width: 200px;
+            z-index: 150;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 11px;
+            color: #2c5aa0;
+            text-align: center;
+            pointer-events: none;
+            text-decoration: underline;
+        }
+        
+        .product-discord {
+            position: absolute;
+            top: 380px;
+            left: 15px;
+            width: 200px;
+            z-index: 150;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 11px;
+            color: #7289da;
+            text-align: center;
+            pointer-events: none;
+            text-decoration: underline;
+        }
+        
+        
+        .media-player {
+            position: absolute;
+            top: 20px;
+            left: 290px;
+            width: 480px;
+            height: 270px;
+            z-index: 45;
+            background: linear-gradient(135deg, rgba(245, 245, 245, 0.25) 0%, rgba(220, 220, 220, 0.2) 100%);
+            border: 2px solid #4a4a4a;
+            border-radius: 6px;
+            box-shadow: 
+                0 0 0 1px rgba(255, 255, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+                inset 1px 0 0 rgba(255, 255, 255, 0.2),
+                inset -1px 0 0 rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(1px);
+            -webkit-backdrop-filter: blur(1px);
+        }
+        
+        .media-content {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            overflow: hidden;
+            background: #000;
+            border: 1px solid #2a2a2a;
+            border-radius: 3px;
+            box-shadow: 
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 2px 2px 4px rgba(0, 0, 0, 0.7),
+                inset -1px -1px 2px rgba(255, 255, 255, 0.05),
+                0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .media-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .media-image.active {
+            opacity: 1;
+        }
+
+        @media (max-width: 0px) {
+            .windows-stage,
+            .glass-window {
+                width: 360px;
+                height: 720px;
+            }
+
+            .address-bar {
+                top: 39px;
+                left: 8px;
+                right: 8px;
+            }
+
+            .search-bar {
+                top: 69px;
+                left: 8px;
+                right: 8px;
+                width: auto;
+            }
+
+            .unified-content {
+                top: 99px;
+                left: 8px;
+                right: 8px;
+                bottom: 8px;
+            }
+
+            .vertical-separator {
+                left: 126px;
+            }
+
+            .horizontal-separator {
+                top: 174px;
+                left: 136px;
+            }
+
+            .small-window {
+                top: 12px;
+                left: 10px;
+                width: 108px;
+                height: 150px;
+            }
+
+            .small-window-title {
+                left: 9px;
+                right: 9px;
+                font-size: 9px;
+            }
+
+            .media-player {
+                top: 12px;
+                left: 136px;
+                width: 198px;
+                height: 138px;
+            }
+
+            .media-placeholder-text {
+                top: 156px;
+                left: 136px;
+                width: 198px;
+                font-size: 9px;
+            }
+
+            .text-area {
+                top: 184px;
+                left: 136px;
+                right: 10px;
+                bottom: 62px;
+            }
+
+            .text-content {
+                padding: 8px;
+                font-size: 11px;
+                line-height: 1.35;
+                text-align: left;
+            }
+
+            .product-name,
+            .product-stock,
+            .product-price,
+            .product-options,
+            .product-website,
+            .product-discord {
+                left: 10px;
+                width: 108px;
+            }
+
+            .product-name {
+                top: 174px;
+                font-size: 15px;
+            }
+
+            .product-stock {
+                top: 198px;
+            }
+
+            .product-price {
+                top: 222px;
+            }
+
+            .product-options {
+                top: 250px;
+            }
+
+            .product-website {
+                top: 290px;
+                overflow-wrap: anywhere;
+            }
+
+            .product-discord {
+                top: 330px;
+                overflow-wrap: anywhere;
+            }
+
+            .win7-btn {
+                right: 10px;
+                bottom: 13px;
+                width: 122px;
+            }
+        }
+
+    </style>
+    <div class="windows-stage">
+    <div class="glass-window" id="glassWindow">
+        <div class="white-border"></div>
+        <div class="glass-content"></div>
+        
+        
+        <div class="window-title">Ordenador</div>
+        
+        
+        <div class="window-title-bar">
+            <div id="button-wrap">
+                <div class="bt close" title="Close"></div>
+                <div class="bt maximize" title="Maximize"></div>
+                <div class="bt minimize" title="Minimize"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        
+        <div class="address-bar">
+            <div class="address-bar-glass"></div>
+            <div class="breadcrumb-nav">
+                
+                <span class="breadcrumb-text">C:\Antipublic\Store\presagios\info</span>
+            </div>
+        </div>
+
+        
+        <div class="search-bar">
+            <div class="search-bar-glass"></div>
+            
+            <div class="search-text">You are now looking at presagios</div>
+        </div>
+
+        
+        <div class="unified-content">
+            <div class="unified-content-glass"></div>
+            
+            <div class="vertical-separator"></div>
+            <div class="horizontal-separator"></div>
+            
+            <button class="win7-btn">okay</button>
+            
+            
+            <div class="media-player">
+                <div class="media-content">
+                    <img src="emi.png" alt="Product Image" class="media-image active">
+                </div>
+            </div>
+            
+            
+            <div class="media-placeholder-text">19onneday (no soy yo. love you emi)</div>
+            
+            
+            <div class="text-area">
+                <div class="text-content">
+                    Para soltar quizás hay que aferrarse más a la realidad que a la idealización, ¿Para qué preguntarse tanto que hubiera pasado si las cosas hubieran sido distintas? ¿Por qué no mejor preguntarse cómo van a ser las cosas ahora, o qué va a pasar? Si la nostalgia nos ganó mil y una veces fue porque nunca supimos afrontar el presente y quisimos vivir un pasado que ya no era posible, entonces, ¿Por qué vamos a dejar que la melancolía nos mate a los dos lentamente? Aunque tu ausencia me genere la mayor paz que alguna vez viví, mi corazón todavía late por vos, y estoy decidido a vivir con ese sentimiento.
+                </div>
+            </div>
+            
+            
+            <div class="product-name">Luca Mateo</div>
+            <div class="product-stock">18/6/2005</div>
+            <div class="product-price">21$</div>
+            <div class="product-options">Argentina, Santa Fe</div>
+            <div class="product-website">https://Antipublic.org</div>
+            <div class="product-discord">antipublico@icloud.com</div>
+            
+            
+            <div class="small-window">
+                <div class="small-window-border"></div>
+                <div class="small-window-content"></div>
+                
+                
+                <div class="small-window-title">presagios.PNG</div>
+                
+                
+                <div class="small-content-box">
+                    <div class="small-content-glass"></div>
+                    <img class="small-favico" src="favico.jpg" alt="">
+                </div>
+                
+                <div class="small-window-streaks">
+                    <div class="small-stroke-top-right"></div>
+                    <div class="small-stroke-bottom-left"></div>
+                    <div class="small-stroke-middle"></div>
+                    <div class="small-corner-glow-top-left"></div>
+                    <div class="small-corner-glow-top-right"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="glass-streaks">
+            <div class="stroke-top-right"></div>
+            <div class="stroke-bottom-left"></div>
+            <div class="stroke-middle"></div>
+            <div class="stroke-left-middle"></div>
+            <div class="stroke-top-right-corner"></div>
+            <div class="stroke-bottom-left-duplicate"></div>
+            <div class="stroke-bottom-left-small"></div>
+            <div class="corner-glow-top-left"></div>
+            <div class="corner-glow-top-right"></div>
+        </div>
+    </div>
+
+    </div>
+  </template>
 
 <script>
 (function(){
@@ -1280,8 +2349,7 @@ presage
 
   var SITE_LANG = ((navigator.language || navigator.userLanguage || 'en').toLowerCase().indexOf('es') === 0) ? 'es' : 'en';
   var UI_TEXT = SITE_LANG === 'es' ? {
-    titles: ["mis gustos", "antipublic", "presage"],
-    catAnchor: "elao de limon lomejor del mundoo",
+    titles: ["bout me", "antipublic", "presage"],
     posts: "publicaciones",
     followers: "seguidores",
     following: "seguidos",
@@ -1289,10 +2357,9 @@ presage
     video: "video",
     follow: "seguir",
     youtubeTitle: "YouTube video",
-    credit: 'Presage 2026, gracias a <a href="https://prynts.net" target="_blank" rel="noopener noreferrer">Prynts</a> por el codigo'
+    credit: 'Presage 2026, gracias a <a href="https://prynts.net" target="_blank" rel="noopener noreferrer">Prynts</a> por el código'
   } : {
-    titles: ["my tastes", "antipublic", "presage"],
-    catAnchor: "lemon ice cream best thing in the worlddd",
+    titles: ["bout me", "antipublic", "presage"],
     posts: "posts",
     followers: "followers",
     following: "following",
@@ -1319,7 +2386,6 @@ presage
   ];
   var DIVIDER_LINES = ["━─━────༺༻────━─━"];
   var TITLE_LINES = UI_TEXT.titles;
-  var CAT_ANCHOR_TEXT = UI_TEXT.catAnchor;
   var TYPE_STEP_MS = 3;
   var LEFT_TITLE_SEQUENCE = ["⭑.₊", "⊹₊⊹", "₊⊹.", ".⊹₊"];
   var RIGHT_TITLE_SEQUENCE = ["₊.⭑", "⊹₊⊹", "⊹.₊", "₊.⊹"];
@@ -1352,9 +2418,6 @@ presage
       }
       if (TITLE_LINES.indexOf(line) >= 0){
         lineWrapper.className = 'title-line';
-      }
-      if (line === CAT_ANCHOR_TEXT){
-        lineWrapper.className = 'cat-anchor';
       }
       if (
         line.trim() &&
@@ -1458,9 +2521,6 @@ presage
         if (TITLE_LINES.indexOf(line) >= 0){
           lineHTML = '<span class="title-line">' + lineHTML + '</span>';
         }
-        if (line === CAT_ANCHOR_TEXT){
-          lineHTML = '<span class="cat-anchor">' + lineHTML + '</span>';
-        }
         if (
           line.trim() &&
           IDENTITY_LINES.indexOf(line) < 0 &&
@@ -1472,6 +2532,9 @@ presage
         return lineHTML;
       }).join('\n');
 
+      Array.prototype.forEach.call(textEl.querySelectorAll('.windows-demo-host'), function(host){
+        if (host._windowsCleanup) host._windowsCleanup();
+      });
       textEl.innerHTML = finalHTML;
       updateTitleSequence();
       appendAntipublicMedia(true);
@@ -1512,21 +2575,69 @@ presage
     revealSequenceElement(cardSlot, null, 120, false);
   }
 
+  function mountWindowsDemo(host){
+    var template = document.getElementById('windows-demo-template');
+    var shadow = host.attachShadow({ mode: 'open' });
+    shadow.appendChild(template.content.cloneNode(true));
+
+    var stage = shadow.querySelector('.windows-stage');
+    var mediaContent = shadow.querySelector('.media-content');
+    var imageSources = ['emi.png', 'emi2.png', 'emi3.jpeg'];
+    var currentImage = 0;
+
+    mediaContent.innerHTML = '';
+    imageSources.forEach(function(src, index){
+      var image = document.createElement('img');
+      image.src = src;
+      image.alt = 'Product Image ' + (index + 1);
+      image.className = index === 0 ? 'media-image active' : 'media-image';
+      image.draggable = false;
+      mediaContent.appendChild(image);
+    });
+
+    var slideshowTimer = setInterval(function(){
+      var images = shadow.querySelectorAll('.media-image');
+      currentImage = (currentImage + 1) % images.length;
+      Array.prototype.forEach.call(images, function(image, index){
+        image.classList.toggle('active', index === currentImage);
+      });
+    }, 4000);
+
+    function resizeWindowDemo(){
+      var designWidth = 855;
+      var designHeight = 618;
+      var scale = Math.min(host.clientWidth / designWidth, 1);
+      host.style.height = (designHeight * scale) + 'px';
+      stage.style.width = designWidth + 'px';
+      stage.style.height = designHeight + 'px';
+      stage.style.left = '0';
+      stage.style.top = '0';
+      stage.style.transform = 'none';
+      stage.style.transformOrigin = 'top left';
+      stage.style.zoom = scale;
+    }
+
+    var resizeObserver = new ResizeObserver(resizeWindowDemo);
+    resizeObserver.observe(host);
+    resizeWindowDemo();
+
+    host._windowsCleanup = function(){
+      clearInterval(slideshowTimer);
+      resizeObserver.disconnect();
+    };
+  }
+
   function appendAntipublicMedia(immediate){
     var titleImage = document.createElement('img');
-    var mediaPair = document.createElement('div');
-    var catFrame = document.createElement('div');
-    var catImage = document.createElement('img');
-    var chromaFrame = document.createElement('div');
-    var chromaImage = document.createElement('img');
+    var windowsHost = document.createElement('div');
     var footerImage = document.createElement('img');
     var instagramWidget = document.createElement('div');
     var youtubeWidget = document.createElement('div');
     var widgetsRow = document.createElement('div');
     var antipublicTitle = null;
     var presageTitle = null;
-    var catAnchor = textEl.querySelector('.cat-anchor');
     var dividerElements = textEl.querySelectorAll('.divider-line');
+    var windowAnchor = dividerElements.length > 2 ? dividerElements[2] : null;
 
     Array.prototype.forEach.call(textEl.querySelectorAll('.title-line'), function(title){
       if (title.textContent.trim() === 'antipublic') antipublicTitle = title;
@@ -1550,31 +2661,12 @@ presage
       revealSequenceElement(titleImage, antipublicTitle, 80, immediate);
     }
 
-    if (catAnchor){
-      mediaPair.className = 'media-pair';
-      mediaPair.setAttribute('contenteditable', 'false');
-      catFrame.className = 'cat-frame';
-      catFrame.setAttribute('contenteditable', 'false');
-      catImage.className = 'cat-photo';
-      catImage.src = 'gato.jpg';
-      catImage.alt = '';
-      catImage.draggable = false;
-      catImage.setAttribute('contenteditable', 'false');
-      catFrame.appendChild(catImage);
-
-      chromaFrame.className = 'chroma-frame';
-      chromaFrame.setAttribute('contenteditable', 'false');
-      chromaImage.className = 'chroma-animation';
-      chromaImage.src = 'chroma-alpha.webp';
-      chromaImage.alt = '';
-      chromaImage.draggable = false;
-      chromaImage.setAttribute('contenteditable', 'false');
-      chromaFrame.appendChild(chromaImage);
-
-      mediaPair.appendChild(catFrame);
-      mediaPair.appendChild(chromaFrame);
-      catAnchor.parentNode.insertBefore(mediaPair, catAnchor);
-      revealSequenceElement(mediaPair, catAnchor, 0, immediate);
+    if (windowAnchor){
+      windowsHost.className = 'windows-demo-host';
+      windowsHost.setAttribute('contenteditable', 'false');
+      windowAnchor.parentNode.insertBefore(windowsHost, windowAnchor);
+      mountWindowsDemo(windowsHost);
+      revealSequenceElement(windowsHost, windowAnchor, 0, immediate);
     }
 
     footerImage.className = 'antipublic-footer-art';
@@ -1725,8 +2817,10 @@ presage
       'cursor.png',
       'link.png',
       'titulo antipublic.svg',
-      'gato.jpg',
-      'chroma-alpha.webp',
+      'emi.png',
+      'emi2.png',
+      'emi3.jpeg',
+      'favico.jpg',
       'antipublic.png',
       'instagram-avatar.webp',
       'verificado ig.svg',
