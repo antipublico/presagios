@@ -971,6 +971,26 @@
       width: 100%;
     }
 
+    html,
+    body{
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .frame{
+      position: relative;
+      min-height: 100dvh;
+      height: auto;
+      overflow: visible;
+    }
+
+    .page-outer,
+    .page{
+      height: auto;
+      min-height: 100%;
+      overflow: visible;
+    }
+
     .windows-demo-host{
       z-index: 50;
       overflow: visible;
@@ -980,6 +1000,18 @@
     .windows-stage{
       transform: none !important;
       transform-origin: top left !important;
+    }
+
+    .page,
+    .page-outer,
+    .windows-demo-host{
+      overflow-x: visible;
+    }
+
+    .page{
+      filter: none !important;
+      transition: none;
+      will-change: auto;
     }
 
   }
@@ -2853,12 +2885,15 @@ presage
   }
 
   var blurAmountEl = document.getElementById('motion-blur-amount');
+  var motionBlurDesktopQuery = window.matchMedia('(min-width: 769px)');
   var lastTop = 0;
   var lastTime = performance.now();
   var blurTimeout = null;
   var filterOn = false;
 
   pageEl.addEventListener('scroll', function(){
+    if (!motionBlurDesktopQuery.matches) return;
+
     var now = performance.now();
     var dt = Math.max(now - lastTime, 1);
     var dy = Math.abs(pageEl.scrollTop - lastTop);
