@@ -148,10 +148,6 @@
     transition: filter 80ms linear;
   }
 
-  .page-outer{
-    will-change: filter;
-    transition: filter 80ms linear;
-  }
   .page::-webkit-scrollbar{
     display: none;
     width: 0;
@@ -975,26 +971,6 @@
       width: 100%;
     }
 
-    html,
-    body{
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-
-    .frame{
-      position: relative;
-      min-height: 100dvh;
-      height: auto;
-      overflow: visible;
-    }
-
-    .page-outer,
-    .page{
-      height: auto;
-      min-height: 100%;
-      overflow: visible;
-    }
-
     .windows-demo-host{
       z-index: 50;
       overflow: visible;
@@ -1004,16 +980,6 @@
     .windows-stage{
       transform: none !important;
       transform-origin: top left !important;
-    }
-
-    .page,
-    .page-outer,
-    .windows-demo-host{
-      overflow-x: visible;
-    }
-
-    .page{
-      transition: none;
     }
 
   }
@@ -2887,56 +2853,37 @@ presage
   }
 
   var blurAmountEl = document.getElementById('motion-blur-amount');
+  var lastTop = 0;
   var lastTime = performance.now();
   var blurTimeout = null;
   var filterOn = false;
-  var blurFrame = null;
 
-  function getCurrentScrollTop(){
-    return pageEl.scrollTop || window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
-  }
-
-  var lastTop = getCurrentScrollTop();
-
-  function updateMotionBlur(){
-    blurFrame = null;
+  pageEl.addEventListener('scroll', function(){
     var now = performance.now();
     var dt = Math.max(now - lastTime, 1);
-    var currentTop = getCurrentScrollTop();
-    var dy = Math.abs(currentTop - lastTop);
+    var dy = Math.abs(pageEl.scrollTop - lastTop);
     var velocity = dy / dt;
-
-    clearTimeout(blurTimeout);
 
     var blur = Math.min(velocity * 4, 14);
 
     if (blur > 0.15){
       if (!filterOn){
         pageEl.style.filter = 'url(#motion-blur)';
-        pageEl.style.webkitFilter = 'url(#motion-blur)';
         filterOn = true;
       }
       blurAmountEl.setAttribute('stdDeviation', '0 ' + blur.toFixed(2));
-
-      blurTimeout = setTimeout(function(){
-        blurAmountEl.setAttribute('stdDeviation', '0 0');
-        pageEl.style.filter = 'none';
-        pageEl.style.webkitFilter = 'none';
-        filterOn = false;
-      }, 80);
     }
 
-    lastTop = currentTop;
+    lastTop = pageEl.scrollTop;
     lastTime = now;
-  }
 
-  function requestMotionBlurUpdate(){
-    if (blurFrame === null) blurFrame = requestAnimationFrame(updateMotionBlur);
-  }
-
-  pageEl.addEventListener('scroll', requestMotionBlurUpdate, { passive: true });
-  window.addEventListener('scroll', requestMotionBlurUpdate, { passive: true });
-  document.body.addEventListener('scroll', requestMotionBlurUpdate, { passive: true });
+    clearTimeout(blurTimeout);
+    blurTimeout = setTimeout(function(){
+      blurAmountEl.setAttribute('stdDeviation', '0 0');
+      pageEl.style.filter = 'none';
+      filterOn = false;
+    }, 100);
+  }, { passive: true });
 
 
   document.addEventListener('keydown', function(e){
