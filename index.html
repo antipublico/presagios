@@ -1011,6 +1011,11 @@
     .windows-demo-host{
       overflow-x: visible;
     }
+
+    .page{
+      transition: none;
+    }
+
   }
 
 </style>
@@ -2882,11 +2887,10 @@ presage
   }
 
   var blurAmountEl = document.getElementById('motion-blur-amount');
-  var pageOuterEl = document.querySelector('.page-outer');
-  var mobileLayoutQuery = window.matchMedia('(max-width: 768px)');
   var lastTime = performance.now();
   var blurTimeout = null;
   var filterOn = false;
+  var blurFrame = null;
 
   function getCurrentScrollTop(){
     return pageEl.scrollTop || window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
@@ -2894,39 +2898,45 @@ presage
 
   var lastTop = getCurrentScrollTop();
 
-  function updateMotionBlurFrame(){
+  function updateMotionBlur(){
+    blurFrame = null;
     var now = performance.now();
     var dt = Math.max(now - lastTime, 1);
     var currentTop = getCurrentScrollTop();
     var dy = Math.abs(currentTop - lastTop);
     var velocity = dy / dt;
 
+    clearTimeout(blurTimeout);
+
     var blur = Math.min(velocity * 4, 14);
 
     if (blur > 0.15){
       if (!filterOn){
         pageEl.style.filter = 'url(#motion-blur)';
-        if (mobileLayoutQuery.matches) pageOuterEl.style.filter = 'url(#motion-blur)';
+        pageEl.style.webkitFilter = 'url(#motion-blur)';
         filterOn = true;
       }
       blurAmountEl.setAttribute('stdDeviation', '0 ' + blur.toFixed(2));
 
-      clearTimeout(blurTimeout);
       blurTimeout = setTimeout(function(){
         blurAmountEl.setAttribute('stdDeviation', '0 0');
         pageEl.style.filter = 'none';
-        pageOuterEl.style.filter = 'none';
+        pageEl.style.webkitFilter = 'none';
         filterOn = false;
-      }, 100);
+      }, 80);
     }
 
     lastTop = currentTop;
     lastTime = now;
-
-    requestAnimationFrame(updateMotionBlurFrame);
   }
 
-  requestAnimationFrame(updateMotionBlurFrame);
+  function requestMotionBlurUpdate(){
+    if (blurFrame === null) blurFrame = requestAnimationFrame(updateMotionBlur);
+  }
+
+  pageEl.addEventListener('scroll', requestMotionBlurUpdate, { passive: true });
+  window.addEventListener('scroll', requestMotionBlurUpdate, { passive: true });
+  document.body.addEventListener('scroll', requestMotionBlurUpdate, { passive: true });
 
 
   document.addEventListener('keydown', function(e){
