@@ -1793,6 +1793,9 @@ presage
             pointer-events: none;
             right: 15px;
             height: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         
@@ -2125,6 +2128,17 @@ presage
             width: 92px;
             padding: 7px 12px;
             font-size: 11px;
+        }
+
+        :host(.is-mobile) .glass-content,
+        :host(.is-mobile) .address-bar-glass,
+        :host(.is-mobile) .search-bar-glass,
+        :host(.is-mobile) .unified-content-glass,
+        :host(.is-mobile) .small-window-content,
+        :host(.is-mobile) .small-content-glass,
+        :host(.is-mobile) .media-player {
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
         }
 
         @media (max-width: 0px) {
@@ -2745,7 +2759,6 @@ presage
     resizeObserver.observe(host);
     window.addEventListener('resize', resizeWindowDemo);
     window.addEventListener('orientationchange', resizeWindowDemo);
-    resizeWindowDemo();
 
     host._windowsCleanup = function(){
       clearInterval(slideshowTimer);
@@ -2871,7 +2884,6 @@ presage
   var blurAmountEl = document.getElementById('motion-blur-amount');
   var pageOuterEl = document.querySelector('.page-outer');
   var mobileLayoutQuery = window.matchMedia('(max-width: 768px)');
-  var lastTop = 0;
   var lastTime = performance.now();
   var blurTimeout = null;
   var filterOn = false;
@@ -2880,7 +2892,9 @@ presage
     return pageEl.scrollTop || window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
   }
 
-  function handleMotionBlurScroll(){
+  var lastTop = getCurrentScrollTop();
+
+  function updateMotionBlurFrame(){
     var now = performance.now();
     var dt = Math.max(now - lastTime, 1);
     var currentTop = getCurrentScrollTop();
@@ -2896,24 +2910,24 @@ presage
         filterOn = true;
       }
       blurAmountEl.setAttribute('stdDeviation', '0 ' + blur.toFixed(2));
+
+      clearTimeout(blurTimeout);
+      blurTimeout = setTimeout(function(){
+        blurAmountEl.setAttribute('stdDeviation', '0 0');
+        pageEl.style.filter = 'none';
+        pageOuterEl.style.filter = 'none';
+        filterOn = false;
+      }, 100);
     }
 
     lastTop = currentTop;
     lastTime = now;
 
-    clearTimeout(blurTimeout);
-    blurTimeout = setTimeout(function(){
-      blurAmountEl.setAttribute('stdDeviation', '0 0');
-      pageEl.style.filter = 'none';
-      pageOuterEl.style.filter = 'none';
-      filterOn = false;
-    }, 100);
+    requestAnimationFrame(updateMotionBlurFrame);
   }
 
-  pageEl.addEventListener('scroll', handleMotionBlurScroll, { passive: true });
-  window.addEventListener('scroll', handleMotionBlurScroll, { passive: true });
-  document.addEventListener('scroll', handleMotionBlurScroll, { passive: true });
-  document.body.addEventListener('scroll', handleMotionBlurScroll, { passive: true });
+  requestAnimationFrame(updateMotionBlurFrame);
+
 
   document.addEventListener('keydown', function(e){
     var k = e.key;
