@@ -147,6 +147,11 @@
     will-change: filter;
     transition: filter 80ms linear;
   }
+
+  .page-outer{
+    will-change: filter;
+    transition: filter 80ms linear;
+  }
   .page::-webkit-scrollbar{
     display: none;
     width: 0;
@@ -1129,7 +1134,7 @@ P R E S A G I O S
 J K L M N O P Q R
 S T U V W X Y Z
 ━─━────༺༻────━─━
-Every great silence leaves an omen behind. Not because it announces the future, but because it turns the present into something impossible to forget.
+Todo gran silencio deja un presagio detrás de sí. No porque anuncie el futuro, sino porque convierte el presente en algo imposible de olvidar.
 ━─━────༺༻────━─━
 bout me
 my name is presage and i make cool stuff on the web whenever i feel like it. if anyone needs something for their website or whatever, send me an email at antipublico@icloud.com or message me on ig: prsge. I like music, cats, Black Ops 6, Geometry Dash, nicotine and boobs. I have 9 cats because they are the best living thing in the world, yes. I love the color white and everything related to it, I love the concept of ether... I like collaborating with people who make art and learning from them, getting inspired and helping. My fav artist is Edward Skeletrix and my fav kpop group is NewJeans, ok let them come back. My fav games are Stalker 2 and Tarkov and my fav movie is Stay 2005.
@@ -2004,6 +2009,124 @@ presage
             opacity: 1;
         }
 
+        :host(.is-mobile) .windows-stage,
+        :host(.is-mobile) .glass-window {
+            width: 360px;
+            height: 430px;
+        }
+
+        :host(.is-mobile) .address-bar {
+            top: 39px;
+            left: 8px;
+            right: 8px;
+        }
+
+        :host(.is-mobile) .search-bar {
+            display: none;
+        }
+
+        :host(.is-mobile) .unified-content {
+            top: 74px;
+            left: 8px;
+            right: 8px;
+            bottom: auto;
+            height: 344px;
+        }
+
+        :host(.is-mobile) .vertical-separator,
+        :host(.is-mobile) .horizontal-separator {
+            display: none;
+        }
+
+        :host(.is-mobile) .media-player {
+            top: 12px;
+            left: 10px;
+            right: 10px;
+            width: auto;
+            height: auto;
+            aspect-ratio: 16 / 9;
+        }
+
+        :host(.is-mobile) .media-image {
+            object-fit: contain;
+        }
+
+        :host(.is-mobile) .media-placeholder-text {
+            top: 204px;
+            left: 10px;
+            width: 324px;
+            font-size: 8px;
+        }
+
+        :host(.is-mobile) .small-window {
+            top: 224px;
+            left: 10px;
+            width: 80px;
+            height: 100px;
+        }
+
+        :host(.is-mobile) .small-window-title {
+            left: 9px;
+            right: 9px;
+            font-size: 9px;
+        }
+
+        :host(.is-mobile) .text-area {
+            display: none;
+        }
+
+        :host(.is-mobile) .product-name,
+        :host(.is-mobile) .product-stock,
+        :host(.is-mobile) .product-price,
+        :host(.is-mobile) .product-options,
+        :host(.is-mobile) .product-website,
+        :host(.is-mobile) .product-discord {
+            left: 108px;
+            width: 122px;
+            text-align: left;
+            line-height: 1;
+        }
+
+        :host(.is-mobile) .product-name {
+            top: 224px;
+            font-size: 13px;
+        }
+
+        :host(.is-mobile) .product-stock {
+            top: 243px;
+            font-size: 10px;
+        }
+
+        :host(.is-mobile) .product-price {
+            top: 260px;
+            font-size: 11px;
+        }
+
+        :host(.is-mobile) .product-options {
+            top: 279px;
+            font-size: 9px;
+        }
+
+        :host(.is-mobile) .product-website {
+            top: 297px;
+            font-size: 9px;
+            overflow-wrap: anywhere;
+        }
+
+        :host(.is-mobile) .product-discord {
+            top: 313px;
+            font-size: 9px;
+            overflow-wrap: anywhere;
+        }
+
+        :host(.is-mobile) .win7-btn {
+            right: 10px;
+            bottom: 13px;
+            width: 92px;
+            padding: 7px 12px;
+            font-size: 11px;
+        }
+
         @media (max-width: 0px) {
             .windows-stage,
             .glass-window {
@@ -2391,6 +2514,7 @@ presage
   var RIGHT_TITLE_SEQUENCE = ["₊.⭑", "⊹₊⊹", "⊹.₊", "₊.⊹"];
   var titleSequenceIndex = 0;
   var titleSequenceTimer = null;
+  var persistentMedia = {};
   function esc(s){
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
@@ -2532,9 +2656,6 @@ presage
         return lineHTML;
       }).join('\n');
 
-      Array.prototype.forEach.call(textEl.querySelectorAll('.windows-demo-host'), function(host){
-        if (host._windowsCleanup) host._windowsCleanup();
-      });
       textEl.innerHTML = finalHTML;
       updateTitleSequence();
       appendAntipublicMedia(true);
@@ -2604,13 +2725,16 @@ presage
     }, 4000);
 
     function resizeWindowDemo(){
-      var designWidth = 855;
-      var designHeight = 618;
+      var isMobileWindow = window.matchMedia('(max-width: 768px)').matches;
+      var designWidth = isMobileWindow ? 360 : 855;
+      var designHeight = isMobileWindow ? 430 : 618;
       var scale = Math.min(host.clientWidth / designWidth, 1);
+      var centeredLeft = Math.max((host.clientWidth - designWidth * scale) / 2, 0) / scale;
+      host.classList.toggle('is-mobile', isMobileWindow);
       host.style.height = (designHeight * scale) + 'px';
       stage.style.width = designWidth + 'px';
       stage.style.height = designHeight + 'px';
-      stage.style.left = '0';
+      stage.style.left = centeredLeft + 'px';
       stage.style.top = '0';
       stage.style.transform = 'none';
       stage.style.transformOrigin = 'top left';
@@ -2619,21 +2743,19 @@ presage
 
     var resizeObserver = new ResizeObserver(resizeWindowDemo);
     resizeObserver.observe(host);
+    window.addEventListener('resize', resizeWindowDemo);
+    window.addEventListener('orientationchange', resizeWindowDemo);
     resizeWindowDemo();
 
     host._windowsCleanup = function(){
       clearInterval(slideshowTimer);
       resizeObserver.disconnect();
+      window.removeEventListener('resize', resizeWindowDemo);
+      window.removeEventListener('orientationchange', resizeWindowDemo);
     };
   }
 
   function appendAntipublicMedia(immediate){
-    var titleImage = document.createElement('img');
-    var windowsHost = document.createElement('div');
-    var footerImage = document.createElement('img');
-    var instagramWidget = document.createElement('div');
-    var youtubeWidget = document.createElement('div');
-    var widgetsRow = document.createElement('div');
     var antipublicTitle = null;
     var presageTitle = null;
     var dividerElements = textEl.querySelectorAll('.divider-line');
@@ -2653,87 +2775,116 @@ presage
     });
 
     if (antipublicTitle){
-      titleImage.className = 'antipublic-title-art';
-      titleImage.src = 'titulo antipublic.svg';
-      titleImage.alt = '';
-      titleImage.setAttribute('contenteditable', 'false');
-      antipublicTitle.parentNode.insertBefore(titleImage, antipublicTitle.nextSibling);
-      revealSequenceElement(titleImage, antipublicTitle, 80, immediate);
+      if (!persistentMedia.titleImage){
+        persistentMedia.titleImage = document.createElement('img');
+        persistentMedia.titleImage.className = 'antipublic-title-art';
+        persistentMedia.titleImage.src = 'titulo antipublic.svg';
+        persistentMedia.titleImage.alt = '';
+        persistentMedia.titleImage.setAttribute('contenteditable', 'false');
+      }
+      antipublicTitle.parentNode.insertBefore(persistentMedia.titleImage, antipublicTitle.nextSibling);
+      revealSequenceElement(persistentMedia.titleImage, antipublicTitle, 80, immediate);
     }
 
     if (windowAnchor){
-      windowsHost.className = 'windows-demo-host';
-      windowsHost.setAttribute('contenteditable', 'false');
-      windowAnchor.parentNode.insertBefore(windowsHost, windowAnchor);
-      mountWindowsDemo(windowsHost);
-      revealSequenceElement(windowsHost, windowAnchor, 0, immediate);
+      if (!persistentMedia.windowsHost){
+        persistentMedia.windowsHost = document.createElement('div');
+        persistentMedia.windowsHost.className = 'windows-demo-host';
+        persistentMedia.windowsHost.setAttribute('contenteditable', 'false');
+        windowAnchor.parentNode.insertBefore(persistentMedia.windowsHost, windowAnchor);
+        mountWindowsDemo(persistentMedia.windowsHost);
+      } else {
+        windowAnchor.parentNode.insertBefore(persistentMedia.windowsHost, windowAnchor);
+      }
+      revealSequenceElement(persistentMedia.windowsHost, windowAnchor, 0, immediate);
     }
 
-    footerImage.className = 'antipublic-footer-art';
-    footerImage.src = 'antipublic.png';
-    footerImage.alt = '';
-    footerImage.setAttribute('contenteditable', 'false');
+    if (!persistentMedia.footerImage){
+      persistentMedia.footerImage = document.createElement('img');
+      persistentMedia.footerImage.className = 'antipublic-footer-art';
+      persistentMedia.footerImage.src = 'antipublic.png';
+      persistentMedia.footerImage.alt = '';
+      persistentMedia.footerImage.setAttribute('contenteditable', 'false');
+    }
     if (dividerElements.length){
-      dividerElements[dividerElements.length - 1].parentNode.insertBefore(footerImage, dividerElements[dividerElements.length - 1]);
-      revealSequenceElement(footerImage, dividerElements[dividerElements.length - 1], 0, immediate);
+      dividerElements[dividerElements.length - 1].parentNode.insertBefore(persistentMedia.footerImage, dividerElements[dividerElements.length - 1]);
+      revealSequenceElement(persistentMedia.footerImage, dividerElements[dividerElements.length - 1], 0, immediate);
     } else {
-      textEl.appendChild(footerImage);
-      revealSequenceElement(footerImage, null, 0, immediate);
+      textEl.appendChild(persistentMedia.footerImage);
+      revealSequenceElement(persistentMedia.footerImage, null, 0, immediate);
     }
 
     if (presageTitle){
-      widgetsRow.className = 'social-widgets-row';
-      widgetsRow.setAttribute('contenteditable', 'false');
+      if (!persistentMedia.widgetsRow){
+        persistentMedia.widgetsRow = document.createElement('div');
+        persistentMedia.widgetsRow.className = 'social-widgets-row';
+        persistentMedia.widgetsRow.setAttribute('contenteditable', 'false');
 
-      instagramWidget.className = 'instagram-widget';
-      instagramWidget.setAttribute('contenteditable', 'false');
-      instagramWidget.innerHTML = '<div class="instagram-profile"><div class="instagram-avatar-ring"><img class="instagram-avatar" src="instagram-avatar.webp" alt=""></div><div><div class="instagram-name-row"><span>prsge</span><img class="instagram-verified" src="verificado ig.svg" alt="verificado"></div><div class="instagram-real-name">luca</div><div class="instagram-bio">presagios@icloud.com</div></div></div><div class="instagram-stats"><div class="instagram-stat"><strong>0</strong><span>' + UI_TEXT.posts + '</span></div><div class="instagram-stat"><strong>5174</strong><span>' + UI_TEXT.followers + '</span></div><div class="instagram-stat"><strong>509</strong><span>' + UI_TEXT.following + '</span></div></div><a class="instagram-follow" href="https://www.instagram.com/prsge/" target="_blank" rel="noopener noreferrer">' + UI_TEXT.follow + '</a>';
+        persistentMedia.instagramWidget = document.createElement('div');
+        persistentMedia.instagramWidget.className = 'instagram-widget';
+        persistentMedia.instagramWidget.setAttribute('contenteditable', 'false');
+        persistentMedia.instagramWidget.innerHTML = '<div class="instagram-profile"><div class="instagram-avatar-ring"><img class="instagram-avatar" src="instagram-avatar.webp" alt=""></div><div><div class="instagram-name-row"><span>prsge</span><img class="instagram-verified" src="verificado ig.svg" alt="verificado"></div><div class="instagram-real-name">luca</div><div class="instagram-bio">presagios@icloud.com</div></div></div><div class="instagram-stats"><div class="instagram-stat"><strong>0</strong><span>' + UI_TEXT.posts + '</span></div><div class="instagram-stat"><strong>5174</strong><span>' + UI_TEXT.followers + '</span></div><div class="instagram-stat"><strong>509</strong><span>' + UI_TEXT.following + '</span></div></div><a class="instagram-follow" href="https://www.instagram.com/prsge/" target="_blank" rel="noopener noreferrer">' + UI_TEXT.follow + '</a>';
 
-      youtubeWidget.className = 'youtube-widget';
-      youtubeWidget.setAttribute('contenteditable', 'false');
-      youtubeWidget.innerHTML = '<div class="instagram-profile"><img class="youtube-avatar" src="youtube.jpg" alt=""><div><div class="instagram-name-row"><span>antipublico</span></div><div class="instagram-real-name">@antipublico</div><div class="instagram-bio">虚空にいるのはどんな感じなのか考えたことはありますか？</div></div></div><div class="instagram-stats"><div class="instagram-stat"><strong>53.3 K</strong><span>' + UI_TEXT.subscribers + '</span></div><div class="instagram-stat"><strong>1</strong><span>' + UI_TEXT.video + '</span></div></div><a class="instagram-follow" href="https://www.youtube.com/@antipublico" target="_blank" rel="noopener noreferrer">' + UI_TEXT.follow + '</a>';
+        persistentMedia.youtubeWidget = document.createElement('div');
+        persistentMedia.youtubeWidget.className = 'youtube-widget';
+        persistentMedia.youtubeWidget.setAttribute('contenteditable', 'false');
+        persistentMedia.youtubeWidget.innerHTML = '<div class="instagram-profile"><img class="youtube-avatar" src="youtube.jpg" alt=""><div><div class="instagram-name-row"><span>antipublico</span></div><div class="instagram-real-name">@antipublico</div><div class="instagram-bio">虚空にいるのはどんな感じなのか考えたことはありますか？</div></div></div><div class="instagram-stats"><div class="instagram-stat"><strong>53.3 K</strong><span>' + UI_TEXT.subscribers + '</span></div><div class="instagram-stat"><strong>1</strong><span>' + UI_TEXT.video + '</span></div></div><a class="instagram-follow" href="https://www.youtube.com/@antipublico" target="_blank" rel="noopener noreferrer">' + UI_TEXT.follow + '</a>';
 
-      widgetsRow.appendChild(instagramWidget);
-      widgetsRow.appendChild(youtubeWidget);
+        persistentMedia.widgetsRow.appendChild(persistentMedia.instagramWidget);
+        persistentMedia.widgetsRow.appendChild(persistentMedia.youtubeWidget);
+      }
 
-      presageTitle.parentNode.insertBefore(widgetsRow, presageTitle.nextSibling);
-      revealSequenceElement(instagramWidget, presageTitle, 100, immediate);
-      revealSequenceElement(youtubeWidget, presageTitle, 280, immediate);
+      presageTitle.parentNode.insertBefore(persistentMedia.widgetsRow, presageTitle.nextSibling);
+      revealSequenceElement(persistentMedia.instagramWidget, presageTitle, 100, immediate);
+      revealSequenceElement(persistentMedia.youtubeWidget, presageTitle, 280, immediate);
 
-      var videoEmbed = document.createElement('div');
-      videoEmbed.className = 'youtube-embed-wrap';
-      videoEmbed.setAttribute('contenteditable', 'false');
-      videoEmbed.innerHTML = '<div class="youtube-embed-frame"><iframe src="https://www.youtube.com/embed/uiF4BRZ6TSQ?rel=0" title="' + UI_TEXT.youtubeTitle + '" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
-      widgetsRow.parentNode.insertBefore(videoEmbed, widgetsRow.nextSibling);
-      revealSequenceElement(videoEmbed, presageTitle, 420, immediate);
+      if (!persistentMedia.videoEmbed){
+        persistentMedia.videoEmbed = document.createElement('div');
+        persistentMedia.videoEmbed.className = 'youtube-embed-wrap';
+        persistentMedia.videoEmbed.setAttribute('contenteditable', 'false');
+        persistentMedia.videoEmbed.innerHTML = '<div class="youtube-embed-frame"><iframe src="https://www.youtube.com/embed/uiF4BRZ6TSQ?rel=0" title="' + UI_TEXT.youtubeTitle + '" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+      }
+      persistentMedia.widgetsRow.parentNode.insertBefore(persistentMedia.videoEmbed, persistentMedia.widgetsRow.nextSibling);
+      revealSequenceElement(persistentMedia.videoEmbed, presageTitle, 420, immediate);
 
-      var finalDivider = document.createElement('span');
-      finalDivider.className = 'divider-line';
-      finalDivider.textContent = '━─━────༺༻────━─━';
-      finalDivider.setAttribute('contenteditable', 'false');
+      if (!persistentMedia.finalDivider){
+        persistentMedia.finalDivider = document.createElement('span');
+        persistentMedia.finalDivider.className = 'divider-line';
+        persistentMedia.finalDivider.textContent = '━─━────༺༻────━─━';
+        persistentMedia.finalDivider.setAttribute('contenteditable', 'false');
+      }
 
-      var credit = document.createElement('span');
-      credit.className = 'readme-credit';
-      credit.innerHTML = UI_TEXT.credit;
-      credit.setAttribute('contenteditable', 'false');
+      if (!persistentMedia.credit){
+        persistentMedia.credit = document.createElement('span');
+        persistentMedia.credit.className = 'readme-credit';
+        persistentMedia.credit.innerHTML = UI_TEXT.credit;
+        persistentMedia.credit.setAttribute('contenteditable', 'false');
+      }
 
-      videoEmbed.parentNode.insertBefore(finalDivider, videoEmbed.nextSibling);
-      finalDivider.parentNode.insertBefore(credit, finalDivider.nextSibling);
-      revealSequenceElement(finalDivider, presageTitle, 520, immediate);
-      revealSequenceElement(credit, presageTitle, 620, immediate);
+      persistentMedia.videoEmbed.parentNode.insertBefore(persistentMedia.finalDivider, persistentMedia.videoEmbed.nextSibling);
+      persistentMedia.finalDivider.parentNode.insertBefore(persistentMedia.credit, persistentMedia.finalDivider.nextSibling);
+      revealSequenceElement(persistentMedia.finalDivider, presageTitle, 520, immediate);
+      revealSequenceElement(persistentMedia.credit, presageTitle, 620, immediate);
     }
   }
 
   var blurAmountEl = document.getElementById('motion-blur-amount');
+  var pageOuterEl = document.querySelector('.page-outer');
+  var mobileLayoutQuery = window.matchMedia('(max-width: 768px)');
   var lastTop = 0;
   var lastTime = performance.now();
   var blurTimeout = null;
   var filterOn = false;
 
-  pageEl.addEventListener('scroll', function(){
+  function getCurrentScrollTop(){
+    return pageEl.scrollTop || window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  }
+
+  function handleMotionBlurScroll(){
     var now = performance.now();
     var dt = Math.max(now - lastTime, 1);
-    var dy = Math.abs(pageEl.scrollTop - lastTop);
+    var currentTop = getCurrentScrollTop();
+    var dy = Math.abs(currentTop - lastTop);
     var velocity = dy / dt;
 
     var blur = Math.min(velocity * 4, 14);
@@ -2741,21 +2892,28 @@ presage
     if (blur > 0.15){
       if (!filterOn){
         pageEl.style.filter = 'url(#motion-blur)';
+        if (mobileLayoutQuery.matches) pageOuterEl.style.filter = 'url(#motion-blur)';
         filterOn = true;
       }
       blurAmountEl.setAttribute('stdDeviation', '0 ' + blur.toFixed(2));
     }
 
-    lastTop = pageEl.scrollTop;
+    lastTop = currentTop;
     lastTime = now;
 
     clearTimeout(blurTimeout);
     blurTimeout = setTimeout(function(){
       blurAmountEl.setAttribute('stdDeviation', '0 0');
       pageEl.style.filter = 'none';
+      pageOuterEl.style.filter = 'none';
       filterOn = false;
     }, 100);
-  }, { passive: true });
+  }
+
+  pageEl.addEventListener('scroll', handleMotionBlurScroll, { passive: true });
+  window.addEventListener('scroll', handleMotionBlurScroll, { passive: true });
+  document.addEventListener('scroll', handleMotionBlurScroll, { passive: true });
+  document.body.addEventListener('scroll', handleMotionBlurScroll, { passive: true });
 
   document.addEventListener('keydown', function(e){
     var k = e.key;
