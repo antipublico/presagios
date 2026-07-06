@@ -209,6 +209,18 @@
     opacity: 1;
   }
 
+  @keyframes mobile-line-reveal{
+    to{ opacity: 1; }
+  }
+
+  @media (max-width: 768px){
+    .mobile-reveal-line{
+      opacity: 0;
+      animation: mobile-line-reveal 90ms linear forwards;
+      animation-delay: calc(var(--line-index) * 70ms);
+    }
+  }
+
   .hl{
     background: transparent;
     color: #000;
@@ -2527,6 +2539,8 @@ presage
   var DIVIDER_LINES = ["━─━────༺༻────━─━"];
   var TITLE_LINES = UI_TEXT.titles;
   var TYPE_STEP_MS = 3;
+  var MOBILE_LINE_STEP_MS = 70;
+  var useMobileLineReveal = window.matchMedia('(max-width: 768px)').matches;
   var LEFT_TITLE_SEQUENCE = ["⭑.₊", "⊹₊⊹", "₊⊹.", ".⊹₊"];
   var RIGHT_TITLE_SEQUENCE = ["₊.⭑", "⊹₊⊹", "⊹.₊", "₊.⊹"];
   var titleSequenceIndex = 0;
@@ -2543,6 +2557,7 @@ presage
 
     var frag = document.createDocumentFragment();
     var spans = [];
+    var mobileLines = [];
     var highlightChars = [];
     var lines = raw.split('\n');
     var dividerOrdinal = 0;
@@ -2550,6 +2565,7 @@ presage
     lines.forEach(function(line, lineIndex){
       var lineWrapper = document.createElement('span');
       lineWrapper.setAttribute('data-char-index', String(spans.length));
+      lineWrapper.setAttribute('data-line-index', String(lineIndex));
       if (IDENTITY_LINES.indexOf(line) >= 0){
         lineWrapper.className = 'identity-line';
       }
@@ -2576,27 +2592,43 @@ presage
       var highlightEnd = highlightText ? highlightStart + highlightText.length : -1;
       var highlightWrapper = null;
 
-      for (var i = 0; i < line.length; i++){
-        if (i === highlightStart){
+      if (useMobileLineReveal){
+        lineWrapper.classList.add('mobile-reveal-line');
+        lineWrapper.style.setProperty('--line-index', lineIndex);
+        if (highlightText){
+          lineWrapper.appendChild(document.createTextNode(line.slice(0, highlightStart)));
           highlightWrapper = document.createElement('span');
-          highlightWrapper.className = 'hl';
+          highlightWrapper.className = 'hl hl-complete';
+          highlightWrapper.textContent = highlightText;
           lineWrapper.appendChild(highlightWrapper);
-        }
-
-        var span = document.createElement('span');
-        span.className = 'char';
-        span.textContent = line[i];
-
-        if (highlightWrapper && i >= highlightStart && i < highlightEnd){
-          highlightWrapper.appendChild(span);
-          highlightChars.push(span);
+          lineWrapper.appendChild(document.createTextNode(line.slice(highlightEnd)));
         } else {
-          lineWrapper.appendChild(span);
+          lineWrapper.textContent = line;
         }
-        spans.push(span);
+        mobileLines.push(lineWrapper);
+      } else {
+        for (var i = 0; i < line.length; i++){
+          if (i === highlightStart){
+            highlightWrapper = document.createElement('span');
+            highlightWrapper.className = 'hl';
+            lineWrapper.appendChild(highlightWrapper);
+          }
 
-        if (i === highlightEnd - 1){
-          highlightWrapper = null;
+          var span = document.createElement('span');
+          span.className = 'char';
+          span.textContent = line[i];
+
+          if (highlightWrapper && i >= highlightStart && i < highlightEnd){
+            highlightWrapper.appendChild(span);
+            highlightChars.push(span);
+          } else {
+            lineWrapper.appendChild(span);
+          }
+          spans.push(span);
+
+          if (i === highlightEnd - 1){
+            highlightWrapper = null;
+          }
         }
       }
 
@@ -2616,31 +2648,35 @@ presage
     });
 
     var stepMs = TYPE_STEP_MS;
-    spans.forEach(function(span, idx){
-      setTimeout(function(){
-        span.classList.add('in');
-      }, idx * stepMs);
-    });
+    if (!useMobileLineReveal){
+      spans.forEach(function(span, idx){
+        setTimeout(function(){
+          span.classList.add('in');
+        }, idx * stepMs);
+      });
 
-    Array.prototype.forEach.call(identityCopyEl.querySelectorAll('.char'), function(span, idx){
-      setTimeout(function(){
-        span.classList.add('in');
-      }, idx * stepMs);
-    });
+      Array.prototype.forEach.call(identityCopyEl.querySelectorAll('.char'), function(span, idx){
+        setTimeout(function(){
+          span.classList.add('in');
+        }, idx * stepMs);
+      });
 
-    highlightChars.forEach(function(span, idx){
-      setTimeout(function(){
-        span.classList.add('selected');
-      }, 100 + idx * 20);
-    });
+      highlightChars.forEach(function(span, idx){
+        setTimeout(function(){
+          span.classList.add('selected');
+        }, 100 + idx * 20);
+      });
 
-    Array.prototype.forEach.call(identityCopyEl.querySelectorAll('.hl .char'), function(span, idx){
-      setTimeout(function(){
-        span.classList.add('selected');
-      }, 100 + idx * 20);
-    });
+      Array.prototype.forEach.call(identityCopyEl.querySelectorAll('.hl .char'), function(span, idx){
+        setTimeout(function(){
+          span.classList.add('selected');
+        }, 100 + idx * 20);
+      });
+    }
 
-    var totalMs = spans.length * stepMs + 700;
+    var totalMs = useMobileLineReveal
+      ? mobileLines.length * MOBILE_LINE_STEP_MS + 500
+      : spans.length * stepMs + 700;
     setTimeout(function(){
       var finalDividerOrdinal = 0;
       var finalHTML = raw.split('\n').map(function(line){
@@ -2702,10 +2738,15 @@ presage
       element.classList.add('sequence-visible');
       return;
     }
-    var charIndex = anchor ? Number(anchor.getAttribute('data-char-index') || 0) : 0;
+    var sequenceDelay = 0;
+    if (anchor){
+      sequenceDelay = useMobileLineReveal
+        ? Number(anchor.getAttribute('data-line-index') || 0) * MOBILE_LINE_STEP_MS
+        : Number(anchor.getAttribute('data-char-index') || 0) * TYPE_STEP_MS;
+    }
     setTimeout(function(){
       element.classList.add('sequence-visible');
-    }, charIndex * TYPE_STEP_MS + (offset || 0));
+    }, sequenceDelay + (offset || 0));
   }
 
   function revealFixedMedia(){
@@ -2783,10 +2824,12 @@ presage
       if (immediate){
         title.classList.add('decorations-visible');
       } else {
-        var titleIndex = Number(title.getAttribute('data-char-index') || 0);
+        var titleDelay = useMobileLineReveal
+          ? Number(title.getAttribute('data-line-index') || 0) * MOBILE_LINE_STEP_MS
+          : Number(title.getAttribute('data-char-index') || 0) * TYPE_STEP_MS;
         setTimeout(function(){
           title.classList.add('decorations-visible');
-        }, titleIndex * TYPE_STEP_MS);
+        }, titleDelay);
       }
     });
 
