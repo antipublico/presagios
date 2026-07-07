@@ -31,6 +31,47 @@
     pointer-events: none;
   }
 
+
+  .entry-screen{
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: #000;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 220ms linear, visibility 220ms linear;
+  }
+
+  .entry-screen.hidden{
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .entry-text{
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    white-space: pre;
+    text-align: center;
+    line-height: 1.25;
+    animation: entry-ascii 1.15s steps(2,end) infinite;
+  }
+
+  @keyframes entry-ascii{
+    0%, 49%{ opacity: 1; transform: translateY(0); }
+    50%, 100%{ opacity: 0.58; transform: translateY(-1px); }
+  }
+
   .loader-screen{
     position: fixed;
     inset: 0;
@@ -48,6 +89,127 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
+  }
+
+  .page-cat{
+    position: fixed;
+    right: max(18px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+    z-index: 300;
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    pointer-events: none;
+    color: #000;
+    font-family: Consolas, "Courier New", monospace;
+  }
+
+  .page-cat-art{
+    margin: 0;
+    font: 10px/1.08 Consolas, "Courier New", monospace;
+    letter-spacing: 0;
+    white-space: pre;
+  }
+
+  .page-cat-copy{
+    padding-bottom: 3px;
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px){
+    .page-cat{
+      position: relative;
+      right: auto;
+      bottom: auto;
+      width: 100%;
+      margin: 10px auto 4px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .page-cat-art{
+      font-size: 5.5px;
+    }
+
+    .page-cat-copy{
+      padding: 0;
+      font-size: 9px;
+    }
+  }
+
+  .readme-boundaries{
+    position: absolute;
+    z-index: 500;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .readme-boundary{
+    position: absolute;
+    left: -14px;
+    right: -14px;
+    height: 17px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+    pointer-events: none;
+    color: #000;
+    background: transparent;
+    font: 400 11px/17px Consolas, "Courier New", monospace;
+    letter-spacing: 0;
+    white-space: pre;
+    text-align: center;
+    opacity: 0.88;
+    will-change: filter;
+  }
+
+  .readme-boundary-tip{
+    flex: 0 0 auto;
+    min-width: 28px;
+    line-height: 17px;
+    white-space: pre;
+  }
+
+  .readme-boundary-tip-left{
+    text-align: right;
+  }
+
+  .readme-boundary-tip-right{
+    text-align: left;
+  }
+
+  .readme-boundary-track{
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    line-height: 17px;
+    white-space: pre;
+    text-align: center;
+  }
+
+  .readme-boundary-top{
+    top: -9px;
+  }
+
+  .readme-boundary-bottom{
+    bottom: -9px;
+  }
+
+  @media (max-width: 768px){
+    .readme-boundary{
+      left: -8px;
+      right: -8px;
+      font-size: 9px;
+    }
+
+    .readme-boundary-tip{
+      min-width: 23px;
+    }
   }
 
   .ios-spinner{
@@ -173,6 +335,63 @@
     font-size: 1.04em;
   }
 
+  .lyrics-slot{
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+  }
+
+  .lyrics-player{
+    display: grid;
+    width: 100%;
+  }
+
+  .lyrics-sizer,
+  .lyrics-output{
+    grid-area: 1 / 1;
+    width: 100%;
+    font-size: 1.04em;
+    line-height: 1.32;
+    text-align: justify;
+  }
+
+  .lyrics-sizer{
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .lyrics-output strong{
+    font-weight: 700;
+  }
+
+  .lyrics-word{
+    opacity: 0;
+    transition: opacity 90ms linear;
+  }
+
+  .lyrics-word.visible{
+    opacity: 1;
+  }
+
+  .lyrics-underline{
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+
+  .lyrics-dots{
+    float: right;
+    display: inline-block;
+    min-width: 3ch;
+    margin-left: 1ch;
+    text-align: left;
+    opacity: 0;
+  }
+
+  .lyrics-dots.visible{
+    opacity: 1;
+  }
+
   .body-line,
   .body-line *,
   .title-line,
@@ -289,7 +508,7 @@
 
   .readme-signature{
     position: absolute;
-    top: 0;
+    top: 6px;
     left: 50%;
     width: 190px;
     height: 38px;
@@ -360,6 +579,7 @@
     box-shadow: inset 0 0 0 1px #2a2a2a;
     display: flex;
     flex-direction: column;
+    height: 218px;
   }
 
   .social-widgets-row{
@@ -460,9 +680,13 @@
 
   .instagram-follow{
     width: 100%;
-    display: block;
+    height: 32px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-sizing: border-box;
-    padding: 7px 12px;
+    padding: 0 12px;
     border: 1px solid #fff;
     border-radius: 8px;
     color: #000;
@@ -470,7 +694,9 @@
     font: 700 13px/1 Arial, Helvetica, sans-serif;
     text-align: center;
     text-decoration: none;
-    margin-top: 7px;
+    margin-top: auto;
+    appearance: none;
+    -webkit-appearance: none;
   }
 
 
@@ -952,7 +1178,7 @@
     }
 
     .readme-signature{
-      top: 2px;
+      top: 8px;
       left: 50%;
       right: auto;
       width: 150px;
@@ -1031,12 +1257,22 @@
 </style>
 </head>
 <body>
+  <div class="page-cat" aria-label="por el amor vivo y muero; siempre va a ser asi.">
+    <pre class="page-cat-art">    Zzzzz  |\      _,,,--,,_        +-----------------------------+
+           /,`.-'`'   ._  \-;;,_    | por el amor vivo y muero;   |
+          |,4-  ) )_   .;.(  `'-'   | siempre va a ser asi.       |
+         '---''(_/._)-'(_\_)        +-----------------------------+</pre>
+  </div>
   <div class="loader-screen" id="loader-screen" aria-hidden="true">
     <div class="ios-spinner">
       <div></div><div></div><div></div><div></div><div></div><div></div>
       <div></div><div></div><div></div><div></div><div></div><div></div>
     </div>
   </div>
+  <div class="entry-screen" id="entry-screen">
+    <pre class="entry-text">✧°˖ . ݁˖︵‿ CLICK PARA ENTRAR ‿︵˖ . ݁˖°✧</pre>
+  </div>
+  <audio id="site-audio" src="musica.mp3" preload="auto" loop></audio>
 
   <svg width="0" height="0" style="position:absolute">
     <filter id="motion-blur" x="-20%" y="-100%" width="140%" height="300%">
@@ -1045,6 +1281,14 @@
   </svg>
 
   <div class="frame">
+    <div class="readme-boundaries" id="readme-boundaries" aria-hidden="true">
+      <div class="readme-boundary readme-boundary-top">
+        <span class="readme-boundary-tip readme-boundary-tip-left"></span><span class="readme-boundary-track"></span><span class="readme-boundary-tip readme-boundary-tip-right"></span>
+      </div>
+      <div class="readme-boundary readme-boundary-bottom">
+        <span class="readme-boundary-tip readme-boundary-tip-left"></span><span class="readme-boundary-track"></span><span class="readme-boundary-tip readme-boundary-tip-right"></span>
+      </div>
+    </div>
     <div class="page-outer">
       <div class="page" id="page">
         <div id="text" spellcheck="false"></div>
@@ -1124,7 +1368,7 @@ P R E S A G I O S
 J K L M N O P Q R
 S T U V W X Y Z
 ━─━────༺༻────━─━
-Todo gran silencio deja un presagio detrás de sí. No porque anuncie el futuro, sino porque convierte el presente en algo imposible de olvidar.
+[[LYRICS]]
 ━─━────༺༻────━─━
 bout me
 m llamo presage y hago kosas piolas en web cuando m da la gana si, cualkier cosa ahi necesiten algo pa su web o lo que sea me mandan mail a antipublico@icloud.com o me escriben en ig: prsge. Me gustan la música, los gatos, Black Ops 6, Geometry Dash, la nicotina y las tetas. Tengo 9 gatos porq son el mejor ser vivo del mundo, sí. Me encanta el color blanco y todo lo q tenga q ver con él, amo el concepto del ether... Me gusta colaborar con gente q hace arte y aprender de ellos, inspirarme y ayudar. Mis artistas favs son Edward Skeletrix y mi grupo de kpop fav es NewJeans, ok q vuelvan. Mis juegos fav son Stalker 2 y Tarkov y mi película fav es Stay 2005.
@@ -1149,7 +1393,7 @@ P R E S A G I O S
 J K L M N O P Q R
 S T U V W X Y Z
 ━─━────༺༻────━─━
-Todo gran silencio deja un presagio detrás de sí. No porque anuncie el futuro, sino porque convierte el presente en algo imposible de olvidar.
+[[LYRICS]]
 ━─━────༺༻────━─━
 bout me
 my name is presage and i make cool stuff on the web whenever i feel like it. if anyone needs something for their website or whatever, send me an email at antipublico@icloud.com or message me on ig: prsge. I like music, cats, Black Ops 6, Geometry Dash, nicotine and boobs. I have 9 cats because they are the best living thing in the world, yes. I love the color white and everything related to it, I love the concept of ether... I like collaborating with people who make art and learning from them, getting inspired and helping. My fav artist is Edward Skeletrix and my fav kpop group is NewJeans, ok let them come back. My fav games are Stalker 2 and Tarkov and my fav movie is Stay 2005.
@@ -1210,7 +1454,17 @@ presage
                 0 4px 16px rgba(0, 0, 0, 0.35),
                 0 8px 32px rgba(0, 0, 0, 0.25),
                 0 16px 64px rgba(0, 0, 0, 0.15);
-            filter: grayscale(1) contrast(1.1);
+            filter: grayscale(1) contrast(1.1) saturate(0.25);
+            transition: filter 720ms ease, border-color 720ms ease, box-shadow 720ms ease;
+        }
+
+        :host(.color-mode) .glass-window {
+            filter: grayscale(0) contrast(1.02) saturate(1.2);
+            border-color: #347ea9;
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.78),
+                0 4px 18px rgba(0,117,185,0.44),
+                0 12px 42px rgba(0,92,158,0.28);
         }
 
         .glass-content {
@@ -1224,6 +1478,17 @@ presage
             -webkit-backdrop-filter: blur(1.3px);
             border-radius: 5.1px;
             z-index: 1;
+            transition: background 720ms ease;
+        }
+
+        :host(.color-mode) .glass-content {
+            background: rgba(51, 145, 207, 0.48);
+        }
+
+        :host(.color-mode) .unified-content-glass {
+            background: linear-gradient(to bottom, rgba(250,254,255,0.94), rgba(221,242,253,0.88));
+            border-color: #4e86a8;
+            transition: background 720ms ease, border-color 720ms ease;
         }
 
         .white-border {
@@ -1611,6 +1876,7 @@ presage
                 0 0 0 1.5px #e8e8e8,
                 inset 1px 1px 0 rgba(255,255,255,0.8),
                 0 1px 3px rgba(0,0,0,0.08);
+            transition: background 720ms ease, border-color 720ms ease;
         }
 
         
@@ -2319,7 +2585,7 @@ presage
             <div class="vertical-separator"></div>
             <div class="horizontal-separator"></div>
             
-            <button class="win7-btn">okay</button>
+            <button class="win7-btn">wooow</button>
             
             
             <div class="media-player">
@@ -2541,16 +2807,179 @@ presage
   var TYPE_STEP_MS = 3;
   var MOBILE_LINE_STEP_MS = 70;
   var useMobileLineReveal = window.matchMedia('(max-width: 768px)').matches;
-  var LEFT_TITLE_SEQUENCE = ["⭑.₊", "⊹₊⊹", "₊⊹.", ".⊹₊"];
-  var RIGHT_TITLE_SEQUENCE = ["₊.⭑", "⊹₊⊹", "⊹.₊", "₊.⊹"];
+  var LEFT_TITLE_SEQUENCE = ["⊹˚₊", "˚⊹₊", "₊˚⊹", "˚₊⊹"];
+  var RIGHT_TITLE_SEQUENCE = LEFT_TITLE_SEQUENCE.map(function(frame){
+    return Array.from(frame).reverse().join('');
+  });
   var titleSequenceIndex = 0;
+  var titleCapitalIndex = 0;
   var titleSequenceTimer = null;
   var persistentMedia = {};
+  var pageCatEl = document.querySelector('.page-cat');
+  var LYRICS_PARAGRAPHS = [
+    {
+      sentences: [
+        { text: "Dime que vamo' hacer, dime la verdad." },
+        { text: "No te puedo tener, me da la wea." },
+        { text: "No te puedo ver, no te puedo tener." },
+        { text: "Ninguna weona se te puede parecer.", underline: true },
+        { text: "Por ti estoy enfermo y qué le vamo' hacer." },
+        { text: "No te tengo cerca y qué le vamo' hacer." },
+        { text: "Bitch, yo quiero darte hasta el amanecer." },
+        { text: "Yo soy tu real, yo te vi crecer." }
+      ]
+    },
+    {
+      sentences: [
+        { text: "Baby, ven, bailemos juntos." },
+        { text: "Yo sé que tú no perteneces a este mundo." },
+        { text: "Si no soy tu primero, soy tu segundo.", underline: true },
+        { text: "Soy los días que te pasan en segundo'." },
+        { text: "Yo te llevo a ver tu lado más profundo." },
+        { text: "Esa herida que te lleva a lo profundo." },
+        { text: "Tu recuerdo que sigue en lo má' profundo." },
+        { text: "Cada ve' que tomo cuerda yo te hundo." },
+        { text: "Yo te hundo." }
+      ]
+    }
+  ];
+
+  function getLyricsWords(paragraph){
+    var words = [];
+    paragraph.sentences.forEach(function(sentence, sentenceIndex){
+      sentence.text.split(' ').forEach(function(word){
+        words.push({ text: word, underline: !!sentence.underline });
+      });
+    });
+    return words;
+  }
+
+  function renderLyricsParagraph(paragraph, visibleWordLimit){
+    if (!persistentMedia.lyricsOutput) return;
+
+    persistentMedia.lyricsOutput.innerHTML = '';
+    var fragment = document.createDocumentFragment();
+    var words = getLyricsWords(paragraph);
+    var limit = typeof visibleWordLimit === 'number' ? visibleWordLimit : words.length;
+
+    words.forEach(function(word, index){
+      var node = document.createElement('span');
+      node.className = 'lyrics-word' + (word.underline ? ' lyrics-underline' : '');
+      if (index < limit) node.classList.add('visible');
+      node.textContent = word.text;
+      fragment.appendChild(node);
+      if (index < words.length - 1) fragment.appendChild(document.createTextNode(' '));
+    });
+
+    var dots = document.createElement('span');
+    dots.className = 'lyrics-dots' + (limit >= words.length ? ' visible' : '');
+    dots.textContent = '...';
+    fragment.appendChild(dots);
+
+    persistentMedia.lyricsOutput.appendChild(fragment);
+  }
+
+  function startLyricsDots(){
+    stopLyricsDots();
+    var frames = ['.', '..', '...'];
+    var index = 0;
+    persistentMedia.lyricsDotsTimer = setInterval(function(){
+      var dots = persistentMedia.lyricsOutput ? persistentMedia.lyricsOutput.querySelector('.lyrics-dots') : null;
+      if (!dots) return;
+      dots.textContent = frames[index % frames.length];
+      index++;
+    }, 420);
+  }
+
+  function stopLyricsDots(){
+    if (persistentMedia.lyricsDotsTimer){
+      clearInterval(persistentMedia.lyricsDotsTimer);
+      persistentMedia.lyricsDotsTimer = null;
+    }
+  }
+
+  function showLyricsParagraph(paragraph, onComplete){
+    var totalWords = getLyricsWords(paragraph).length;
+    var wordIndex = 0;
+
+    stopLyricsDots();
+    renderLyricsParagraph(paragraph, 0);
+
+    if (persistentMedia.lyricsTypeTimer){
+      clearInterval(persistentMedia.lyricsTypeTimer);
+      persistentMedia.lyricsTypeTimer = null;
+    }
+
+    persistentMedia.lyricsTypeTimer = setInterval(function(){
+      wordIndex++;
+      renderLyricsParagraph(paragraph, wordIndex);
+
+      if (wordIndex >= totalWords){
+        clearInterval(persistentMedia.lyricsTypeTimer);
+        persistentMedia.lyricsTypeTimer = null;
+        startLyricsDots();
+        if (typeof onComplete === 'function') onComplete();
+      }
+    }, 145);
+  }
+
+  function startLyricsLoop(index){
+    showLyricsParagraph(LYRICS_PARAGRAPHS[index], function(){
+      persistentMedia.lyricsTimer = setTimeout(function(){
+        startLyricsLoop((index + 1) % LYRICS_PARAGRAPHS.length);
+      }, 5000);
+    });
+  }
+
+  function startLyricsSequence(){
+    if (persistentMedia.lyricsStarted) return;
+    persistentMedia.lyricsStarted = true;
+    startLyricsLoop(0);
+  }
+
+  function mountLyrics(){
+    var slot = textEl.querySelector('.lyrics-slot');
+    if (!slot) return;
+
+    if (!persistentMedia.lyricsPlayer){
+      persistentMedia.lyricsPlayer = document.createElement('span');
+      persistentMedia.lyricsPlayer.className = 'lyrics-player';
+      persistentMedia.lyricsPlayer.setAttribute('contenteditable','false');
+
+      LYRICS_PARAGRAPHS.forEach(function(paragraph){
+        var sizer = document.createElement('span');
+        sizer.className = 'lyrics-sizer';
+        sizer.textContent = paragraph.sentences.map(function(sentence){ return sentence.text; }).join(' ') + ' ...';
+        persistentMedia.lyricsPlayer.appendChild(sizer);
+      });
+
+      persistentMedia.lyricsOutput = document.createElement('span');
+      persistentMedia.lyricsOutput.className = 'lyrics-output';
+      persistentMedia.lyricsPlayer.appendChild(persistentMedia.lyricsOutput);
+    }
+
+    slot.appendChild(persistentMedia.lyricsPlayer);
+    startLyricsSequence();
+  }
+
+  function placePageCat(){
+    var isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (isMobile && persistentMedia.finalDivider && persistentMedia.finalDivider.parentNode){
+      persistentMedia.finalDivider.parentNode.insertBefore(pageCatEl,persistentMedia.finalDivider);
+    } else if (!isMobile && pageCatEl.parentNode !== document.body){
+      document.body.insertBefore(pageCatEl,document.body.firstChild);
+    }
+  }
+
+  window.addEventListener('resize',placePageCat);
+
   function esc(s){
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
-  renderText(README_TEXT);
+  window.startReadmePage = function(){
+    renderText(README_TEXT);
+  };
 
   function renderText(raw){
     textEl.innerHTML = '';
@@ -2564,8 +2993,12 @@ presage
 
     lines.forEach(function(line, lineIndex){
       var lineWrapper = document.createElement('span');
+      var isLyricsLine = line === '[[LYRICS]]';
       lineWrapper.setAttribute('data-char-index', String(spans.length));
       lineWrapper.setAttribute('data-line-index', String(lineIndex));
+      if (isLyricsLine){
+        lineWrapper.className = 'lyrics-slot';
+      }
       if (IDENTITY_LINES.indexOf(line) >= 0){
         lineWrapper.className = 'identity-line';
       }
@@ -2580,7 +3013,8 @@ presage
         line.trim() &&
         IDENTITY_LINES.indexOf(line) < 0 &&
         DIVIDER_LINES.indexOf(line) < 0 &&
-        TITLE_LINES.indexOf(line) < 0
+        TITLE_LINES.indexOf(line) < 0 &&
+        !isLyricsLine
       ){
         lineWrapper.classList.add('body-line');
       }
@@ -2592,7 +3026,9 @@ presage
       var highlightEnd = highlightText ? highlightStart + highlightText.length : -1;
       var highlightWrapper = null;
 
-      if (useMobileLineReveal){
+      if (isLyricsLine){
+        lineWrapper.textContent = '';
+      } else if (useMobileLineReveal){
         lineWrapper.classList.add('mobile-reveal-line');
         lineWrapper.style.setProperty('--line-index', lineIndex);
         if (highlightText){
@@ -2638,6 +3074,7 @@ presage
       }
     });
     textEl.appendChild(frag);
+    mountLyrics();
     startTitleSequence();
     revealFixedMedia();
     appendAntipublicMedia(false);
@@ -2680,6 +3117,7 @@ presage
     setTimeout(function(){
       var finalDividerOrdinal = 0;
       var finalHTML = raw.split('\n').map(function(line){
+        if (line === '[[LYRICS]]') return '<span class="lyrics-slot"></span>';
         var lineHTML = esc(line);
         lineHTML = lineHTML.replace('www.antipublic.org/aboutus', '<a class="plain-link" href="https://www.antipublic.org/aboutus" contenteditable="false">www.antipublic.org/aboutus</a>');
         HIGHLIGHTS.forEach(function(text){
@@ -2710,6 +3148,7 @@ presage
       }).join('\n');
 
       textEl.innerHTML = finalHTML;
+      mountLyrics();
       updateTitleSequence();
       appendAntipublicMedia(true);
     }, totalMs);
@@ -2719,6 +3158,32 @@ presage
     Array.prototype.forEach.call(textEl.querySelectorAll('.title-line'), function(title){
       title.setAttribute('data-left', LEFT_TITLE_SEQUENCE[titleSequenceIndex]);
       title.setAttribute('data-right', RIGHT_TITLE_SEQUENCE[titleSequenceIndex]);
+
+      var baseTitle=title.getAttribute('data-base-title');
+      if (!baseTitle){
+        baseTitle=title.textContent.trim().toLowerCase();
+        title.setAttribute('data-base-title',baseTitle);
+      }
+
+      var letterIndices=[];
+      for (var i=0;i<baseTitle.length;i++){
+        if (/[a-záéíóúñ]/i.test(baseTitle[i])) letterIndices.push(i);
+      }
+      var phase=titleCapitalIndex%(letterIndices.length+1);
+      var animatedTitle=baseTitle;
+      if (phase>0){
+        var activeIndex=letterIndices[phase-1];
+        animatedTitle=baseTitle.slice(0,activeIndex)+baseTitle[activeIndex].toUpperCase()+baseTitle.slice(activeIndex+1);
+      }
+
+      var titleChars=title.querySelectorAll('.char');
+      if (titleChars.length){
+        Array.prototype.forEach.call(titleChars,function(char,index){
+          char.textContent=animatedTitle[index] || '';
+        });
+      } else {
+        title.textContent=animatedTitle;
+      }
     });
   }
 
@@ -2727,8 +3192,9 @@ presage
     if (titleSequenceTimer) return;
     titleSequenceTimer = setInterval(function(){
       titleSequenceIndex = (titleSequenceIndex + 1) % LEFT_TITLE_SEQUENCE.length;
+      titleCapitalIndex++;
       updateTitleSequence();
-    }, 620);
+    }, 320);
   }
 
   function revealSequenceElement(element, anchor, offset, immediate){
@@ -2761,6 +3227,7 @@ presage
 
     var stage = shadow.querySelector('.windows-stage');
     var mediaContent = shadow.querySelector('.media-content');
+    var colorButton = shadow.querySelector('.win7-btn');
     var imageSources = ['emi.png', 'emi2.png', 'emi3.jpeg'];
     var currentImage = 0;
 
@@ -2772,6 +3239,10 @@ presage
       image.className = index === 0 ? 'media-image active' : 'media-image';
       image.draggable = false;
       mediaContent.appendChild(image);
+    });
+
+    colorButton.addEventListener('click', function(){
+      host.classList.toggle('color-mode');
     });
 
     var slideshowTimer = setInterval(function(){
@@ -2819,8 +3290,9 @@ presage
     var windowAnchor = dividerElements.length > 2 ? dividerElements[2] : null;
 
     Array.prototype.forEach.call(textEl.querySelectorAll('.title-line'), function(title){
-      if (title.textContent.trim() === 'antipublic') antipublicTitle = title;
-      if (title.textContent.trim() === 'presage') presageTitle = title;
+      var titleName=(title.getAttribute('data-base-title') || title.textContent.trim()).toLowerCase();
+      if (titleName === 'antipublic') antipublicTitle = title;
+      if (titleName === 'presage') presageTitle = title;
       if (immediate){
         title.classList.add('decorations-visible');
       } else {
@@ -2922,12 +3394,14 @@ presage
 
       persistentMedia.videoEmbed.parentNode.insertBefore(persistentMedia.finalDivider, persistentMedia.videoEmbed.nextSibling);
       persistentMedia.finalDivider.parentNode.insertBefore(persistentMedia.credit, persistentMedia.finalDivider.nextSibling);
+      placePageCat();
       revealSequenceElement(persistentMedia.finalDivider, presageTitle, 520, immediate);
       revealSequenceElement(persistentMedia.credit, presageTitle, 620, immediate);
     }
   }
 
   var blurAmountEl = document.getElementById('motion-blur-amount');
+  var boundaryBlurElements = document.querySelectorAll('.readme-boundary');
   var motionBlurDesktopQuery = window.matchMedia('(min-width: 769px)');
   var lastTop = 0;
   var lastTime = performance.now();
@@ -2947,6 +3421,9 @@ presage
     if (blur > 0.15){
       if (!filterOn){
         pageEl.style.filter = 'url(#motion-blur)';
+        Array.prototype.forEach.call(boundaryBlurElements, function(boundary){
+          boundary.style.filter = 'url(#motion-blur)';
+        });
         filterOn = true;
       }
       blurAmountEl.setAttribute('stdDeviation', '0 ' + blur.toFixed(2));
@@ -2959,6 +3436,9 @@ presage
     blurTimeout = setTimeout(function(){
       blurAmountEl.setAttribute('stdDeviation', '0 0');
       pageEl.style.filter = 'none';
+      Array.prototype.forEach.call(boundaryBlurElements, function(boundary){
+        boundary.style.filter = 'none';
+      });
       filterOn = false;
     }, 100);
   }, { passive: true });
@@ -2985,6 +3465,64 @@ presage
   });
 
 })();
+</script>
+
+<script>
+  (function(){
+    var layer=document.getElementById('readme-boundaries');
+    var frame=document.querySelector('.frame');
+    var pageOuter=document.querySelector('.page-outer');
+    var boundaries=layer.querySelectorAll('.readme-boundary');
+    var pattern='━─━────༺༻────━─━';
+    var leftFrames=['⊹˚₊‧','˚⊹₊‧','₊˚⊹‧','˚₊⊹‧'];
+    var offset=0;
+    var starFrame=0;
+
+    function syncBounds(){
+      var frameRect=frame.getBoundingClientRect();
+      var pageRect=pageOuter.getBoundingClientRect();
+      layer.style.left=(pageRect.left-frameRect.left)+'px';
+      layer.style.top=(pageRect.top-frameRect.top)+'px';
+      layer.style.width=pageRect.width+'px';
+      layer.style.height=pageRect.height+'px';
+    }
+
+    function buildLine(element, reverse, frameOffset){
+      var track=element.querySelector('.readme-boundary-track');
+      var left=element.querySelector('.readme-boundary-tip-left');
+      var right=element.querySelector('.readme-boundary-tip-right');
+      var leftTip=leftFrames[(starFrame+frameOffset)%leftFrames.length];
+      var rightTip=Array.from(leftTip).reverse().join('');
+      var width=track.getBoundingClientRect().width;
+      var charWidth=window.innerWidth<=768?5.4:6.6;
+      var count=Math.ceil(width/charWidth)+pattern.length*2;
+      var source='';
+      while(source.length<count) source+=pattern;
+      var shift=offset%pattern.length;
+      if(reverse) shift=(pattern.length-shift)%pattern.length;
+      left.textContent=leftTip+'─';
+      right.textContent='─'+rightTip;
+      track.textContent=(source+source).slice(shift,shift+count);
+    }
+
+    function renderBoundaries(){
+      syncBounds();
+      buildLine(boundaries[0],false,0);
+      buildLine(boundaries[1],true,2);
+    }
+
+    renderBoundaries();
+    setInterval(function(){
+      offset=(offset+1)%pattern.length;
+      starFrame=(starFrame+1)%leftFrames.length;
+      renderBoundaries();
+    },180);
+    window.addEventListener('resize',renderBoundaries);
+    if (window.ResizeObserver){
+      var boundaryObserver=new ResizeObserver(renderBoundaries);
+      boundaryObserver.observe(pageOuter);
+    }
+  })();
 </script>
 
 <script>
@@ -3019,6 +3557,10 @@ presage
 
 <script>
   (function(){
+    var entry = document.getElementById('entry-screen');
+    var loader = document.getElementById('loader-screen');
+    var audio = document.getElementById('site-audio');
+    var started = false;
     var mediaToPreload = [
       'firma.png?v=2',
       'cursor.png',
@@ -3043,8 +3585,15 @@ presage
       });
     }
 
+    function hideEntry(){
+      if (!entry) return;
+      entry.classList.add('hidden');
+      setTimeout(function(){
+        if (entry && entry.parentNode) entry.parentNode.removeChild(entry);
+      }, 260);
+    }
+
     function hideLoader(){
-      var loader = document.getElementById('loader-screen');
       document.documentElement.classList.remove('loading');
       if (loader) loader.classList.add('hidden');
       setTimeout(function(){
@@ -3052,13 +3601,31 @@ presage
       }, 260);
     }
 
-    var started = Date.now();
-    Promise.all(mediaToPreload.map(preloadImage)).then(function(){
-      var wait = Math.max(0, 520 - (Date.now() - started));
-      setTimeout(hideLoader, wait);
-    });
+    function playAudio(){
+      if (!audio) return;
+      audio.volume = 0.7;
+      try{
+        var playPromise = audio.play();
+        if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(function(){});
+      } catch(e){}
+    }
 
-    setTimeout(hideLoader, 3500);
+    function enterPage(){
+      if (started) return;
+      started = true;
+      hideEntry();
+      playAudio();
+      if (window.startReadmePage) window.startReadmePage();
+      var startTime = Date.now();
+      Promise.all(mediaToPreload.map(preloadImage)).then(function(){
+        var wait = Math.max(0, 650 - (Date.now() - startTime));
+        setTimeout(hideLoader, wait);
+      });
+      setTimeout(hideLoader, 3500);
+    }
+
+    if (entry) entry.addEventListener('click', enterPage);
+    document.addEventListener('keydown', enterPage, { once: true });
   })();
 </script>
 
