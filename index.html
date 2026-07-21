@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>la tristeza es bella</title>
+<title>Soñador</title>
 <link rel="icon" type="image/jpeg" href="favico.jpg">
 <link rel="shortcut icon" href="favico.jpg">
 <link rel="apple-touch-icon" href="favico.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 <style>
 
   :root{
@@ -1254,15 +1256,185 @@
 
   }
 
+  /* ================= captcha de entrada (reemplaza "click para entrar") ================= */
+  .cap-layout-row{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-areas: "jpleft card jpright";
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    width: 100%;
+    padding: 24px;
+  }
+
+  .cap-jp-left{ grid-area: jpleft; }
+  .cap-jp-right{ grid-area: jpright; }
+  .cap-card-stack{
+    grid-area: card;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    gap: 20px;
+  }
+
+  .cap-jp-vertical{
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    color: #c81e1e;
+    font-family: 'DotGothic16', "Segoe UI", sans-serif;
+    font-size: 22px;
+    line-height: 2.1;
+    letter-spacing: 0.14em;
+    height: 300px;
+  }
+
+  .cap-window{
+    width: min(440px, 92vw);
+    border-radius: 8px;
+    padding: 8px;
+    background: linear-gradient(180deg, #fafafa 0%, #e4e4e4 42%, #cbcbcb 43%, #ececec 100%);
+    border: 1px solid #7a7a7a;
+    box-shadow:
+      0 6px 14px rgba(0,0,0,0.15),
+      inset 0 1px 0 rgba(255,255,255,0.85);
+  }
+
+  .cap-glyph-frame{
+    position: relative;
+    height: 150px;
+    border-radius: 5px;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.55);
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
+  }
+
+  .cap-glyph-frame canvas{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    display:block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    z-index: 2;
+  }
+
+  .cap-glyph-wrap{
+    position:absolute; inset:0;
+    z-index: 1;
+  }
+
+  .cap-glyph{
+    display:block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+
+  .cap-controls{
+    width: min(440px, 92vw);
+    display:flex;
+    gap: 14px;
+  }
+
+  .cap-controls input[type="text"]{
+    flex:1;
+    border-radius: 5px;
+    border: 1px solid #7a7a7a;
+    background: linear-gradient(180deg, #ffffff, #eeeeee);
+    box-shadow:
+      inset 0 1px 3px rgba(0,0,0,0.18),
+      0 1px 0 rgba(255,255,255,0.7);
+    padding: 10px 12px;
+    color: #202020;
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    font-size: 14px;
+    outline: none;
+  }
+  .cap-controls input[type="text"]:focus{
+    box-shadow:
+      inset 0 1px 3px rgba(0,0,0,0.18),
+      0 1px 0 rgba(255,255,255,0.7);
+  }
+  .cap-controls input[type="text"]:disabled{
+    background: #dcdcdc;
+    color: #8a8a8a;
+  }
+
+  .cap-controls button{
+    border-radius: 5px;
+    border: 1px solid #55555a;
+    background: linear-gradient(180deg, #fcfcfc 0%, #e6e6e6 44%, #cfcfcf 45%, #b9b9b9 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.9),
+      0 2px 4px rgba(0,0,0,0.22);
+    padding: 0 20px;
+    color: #202020;
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    font-size: 14px;
+  }
+  .cap-controls button:hover{
+    background: linear-gradient(180deg, #ffffff 0%, #ededed 44%, #d6d6d6 45%, #c4c4c4 100%);
+  }
+  .cap-controls button:active{
+    background: linear-gradient(180deg, #c9c9c9, #dedede);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+  }
+  .cap-controls button:disabled{
+    color: #9a9a9a;
+    background: #dcdcdc;
+    box-shadow: none;
+  }
+
+  #capCard.verified .cap-glyph-frame{
+    box-shadow: inset 0 0 0 2px rgba(90,90,90,0.8), inset 0 2px 6px rgba(0,0,0,0.6);
+  }
+
+  @media (max-width: 640px){
+    .cap-layout-row{
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "jpleft"
+        "jpright"
+        "card";
+      justify-items: center;
+      row-gap: 14px;
+    }
+    .cap-jp-vertical{
+      writing-mode: horizontal-tb;
+      text-orientation: initial;
+      height: auto;
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+      letter-spacing: 0.04em;
+      line-height: 1.6;
+    }
+  }
+
+  /* ================= manchas de sangre grandes y sutiles por toda la pantalla ================= */
+  .blood-field{
+    position: fixed;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    width: 100vw;
+    height: 100vh;
+  }
+
 </style>
 </head>
 <body>
-  <div class="page-cat" aria-label="por el amor vivo y muero; siempre va a ser asi.">
-    <pre class="page-cat-art">    Zzzzz  |\      _,,,--,,_        +-----------------------------+
-           /,`.-'`'   ._  \-;;,_    | por el amor vivo y muero;   |
-          |,4-  ) )_   .;.(  `'-'   | siempre va a ser asi.       |
+  <div class="page-cat" aria-label="soy un soñador, soy un soñador.">
+    <pre class="page-cat-art">    <span id="catZzz">Zzzzz</span>  |\      _,,,--,,_        +-----------------------------+
+           /,`.-'`'   ._  \-;;,_    | soy un soñador,             |
+          |,4-  ) )_   .;.(  `'-'   | soy un soñador.             |
          '---''(_/._)-'(_\_)        +-----------------------------+</pre>
   </div>
+  <canvas id="bloodField" class="blood-field" aria-hidden="true"></canvas>
+
   <div class="loader-screen" id="loader-screen" aria-hidden="true">
     <div class="ios-spinner">
       <div></div><div></div><div></div><div></div><div></div><div></div>
@@ -1270,7 +1442,27 @@
     </div>
   </div>
   <div class="entry-screen" id="entry-screen">
-    <pre class="entry-text">✧°˖ . ݁˖︵‿ CLICK PARA ENTRAR ‿︵˖ . ݁˖°✧</pre>
+    <div class="cap-layout-row">
+      <div class="cap-jp-vertical cap-jp-left">最初の口づけから最後の別れまで、予兆があった。</div>
+
+      <div class="cap-card-stack" id="capCard">
+        <div class="cap-window">
+          <div class="cap-glyph-frame">
+            <canvas id="capPortalCanvas"></canvas>
+            <div class="cap-glyph-wrap">
+              <img class="cap-glyph" id="capGlyphImg" src="A_elemento_1.png" alt="presagio">
+            </div>
+          </div>
+        </div>
+
+        <form id="capCaptchaForm" class="cap-controls" autocomplete="off">
+          <input type="text" id="capAnswer" placeholder="" spellcheck="false">
+          <button type="submit">Verificar</button>
+        </form>
+      </div>
+
+      <div class="cap-jp-vertical cap-jp-right">まだ存在しないものを求め続ける。</div>
+    </div>
   </div>
   <audio id="site-audio" src="musica.mp3" preload="auto" loop></audio>
 
@@ -2816,6 +3008,18 @@ presage
   var titleSequenceTimer = null;
   var persistentMedia = {};
   var pageCatEl = document.querySelector('.page-cat');
+
+  (function animateCatZzz(){
+    var el = document.getElementById('catZzz');
+    if (!el) return;
+    var frames = ['z    ', 'zz   ', 'zzz  ', 'zzzz ', 'Zzzzz'];
+    var idx = 0;
+    setInterval(function(){
+      idx = (idx + 1) % frames.length;
+      el.textContent = frames[idx];
+    }, 450);
+  })();
+
   var LYRICS_PARAGRAPHS = [
     {
       sentences: [
@@ -3624,8 +3828,194 @@ presage
       setTimeout(hideLoader, 3500);
     }
 
-    if (entry) entry.addEventListener('click', enterPage);
-    document.addEventListener('keydown', enterPage, { once: true });
+    // ---------------- captcha: reemplaza el click para entrar ----------------
+    var CAP_FILES = [
+      "A_elemento_1.png","A_elemento_2.png","A_elemento_3.png",
+      "A_elemento_4.png","A_elemento_5.png","A_elemento_6.png",
+      "B_elemento_1.png","B_elemento_2.png","B_elemento_3.png",
+      "B_elemento_4.png","B_elemento_5.png","B_elemento_6.png"
+    ];
+    var CAP_ANSWER = "presagios";
+
+    var capCard = document.getElementById("capCard");
+    var capGlyphImg = document.getElementById("capGlyphImg");
+    var capForm = document.getElementById("capCaptchaForm");
+    var capInput = document.getElementById("capAnswer");
+    var capSubmitBtn = capForm ? capForm.querySelector("button") : null;
+
+    function capRand(min, max){ return Math.random() * (max - min) + min; }
+    function capPick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+
+    if (capInput){
+      capInput.addEventListener("mousedown", function(e){
+        e.preventDefault();
+        capInput.focus();
+      });
+    }
+
+    function resetCaptcha(){
+      if (!capCard) return;
+      capCard.classList.remove("verified");
+      capGlyphImg.src = capPick(CAP_FILES);
+      drawCapBackground();
+      capInput.value = "";
+      capInput.disabled = false;
+      capSubmitBtn.disabled = false;
+      capInput.focus();
+    }
+
+    if (capForm){
+      capForm.addEventListener("submit", function(e){
+        e.preventDefault();
+        var val = capInput.value.trim().toLowerCase();
+
+        if (val === CAP_ANSWER){
+          capCard.classList.add("verified");
+          capInput.disabled = true;
+          capSubmitBtn.disabled = true;
+          enterPage();
+        } else {
+          resetCaptcha();
+        }
+      });
+    }
+
+    // ---- fondo del captcha: manchas de sangre pixeladas por encima ----
+    var capCanvas = document.getElementById("capPortalCanvas");
+    var capCtx = capCanvas ? capCanvas.getContext("2d") : null;
+    var capFrame = capCanvas ? capCanvas.parentElement : null;
+    var CAP_CELL = 6;
+    var capCols = 40, capRows = 16;
+    var BLOOD_SHADES = ["#e8a3b0", "#e0899a", "#d4657c", "#c94f63", "#b8394f", "#8f1d2c", "#f0c2cc"];
+    var BLOOD_SHADES_CORE = ["#5c0a14", "#7a0f1c", "#8f1520", "#6e1018", "#4a0810"];
+
+    function sizeCapCanvas(){
+      if (!capCanvas || !capFrame) return;
+      var rect = capFrame.getBoundingClientRect();
+      capCols = Math.floor(rect.width / CAP_CELL);
+      capRows = Math.floor(rect.height / CAP_CELL);
+      capCanvas.width = capCols * CAP_CELL;
+      capCanvas.height = capRows * CAP_CELL;
+      capCanvas.style.width = (capCols * CAP_CELL) + "px";
+      capCanvas.style.height = (capRows * CAP_CELL) + "px";
+    }
+
+    function drawCapBackground(){
+      if (!capCtx) return;
+      capCtx.clearRect(0, 0, capCanvas.width, capCanvas.height);
+      var clusterCount = Math.floor(capRand(4, 7));
+      for (var c = 0; c < clusterCount; c++){
+        var cx = capRand(0, capCols);
+        var cy = capRand(0, capRows);
+        var blocksInCluster = Math.floor(capRand(12, 22));
+        for (var i = 0; i < blocksInCluster; i++){
+          var ang = capRand(0, Math.PI * 2);
+          var dist = Math.pow(Math.random(), 1.3) * capRand(3, 8);
+          var bx = Math.round(cx + Math.cos(ang) * dist);
+          var by = Math.round(cy + Math.sin(ang) * dist * 0.85);
+          if (bx < 0 || by < 0 || bx >= capCols || by >= capRows) continue;
+          var bsize = capPick([1, 1, 2, 2, 3]);
+          capCtx.globalAlpha = capRand(0.2, 0.6);
+          capCtx.fillStyle = capPick(BLOOD_SHADES);
+          capCtx.fillRect(bx * CAP_CELL, by * CAP_CELL, bsize * CAP_CELL, bsize * CAP_CELL);
+        }
+      }
+      capCtx.globalAlpha = 1;
+    }
+
+    window.addEventListener("resize", function(){
+      sizeCapCanvas();
+      drawCapBackground();
+    });
+
+    if (capCanvas){
+      sizeCapCanvas();
+      drawCapBackground();
+      capGlyphImg.src = capPick(CAP_FILES);
+    }
+
+    // ---- manchas de sangre grandes y sutiles distribuidas por toda la pantalla ----
+    var bloodField = document.getElementById("bloodField");
+    if (bloodField){
+      var bfCtx = bloodField.getContext("2d");
+      var BF_CELL = 10; // celdas grandes -> bloques bien grandes
+      var bfCols = 0, bfRows = 0;
+
+      function sizeBloodField(){
+        bfCols = Math.floor(window.innerWidth / BF_CELL);
+        bfRows = Math.floor(window.innerHeight / BF_CELL);
+        bloodField.width = bfCols * BF_CELL;
+        bloodField.height = bfRows * BF_CELL;
+        bloodField.style.width = (bfCols * BF_CELL) + "px";
+        bloodField.style.height = (bfRows * BF_CELL) + "px";
+      }
+
+      function drawBloodField(){
+        bfCtx.clearRect(0, 0, bloodField.width, bloodField.height);
+        var clusterCount = Math.floor(capRand(4, 8));
+        for (var c = 0; c < clusterCount; c++){
+          var cx = capRand(0, bfCols);
+          var cy = capRand(0, bfRows);
+          var coreRadius = capRand(1.5, 3.5);
+          var spread = capRand(4, 12);
+
+          // ---- nucleo: el "punto de impacto", denso y mas oscuro/opaco ----
+          var coreBlocks = Math.floor(capRand(10, 18));
+          for (var k = 0; k < coreBlocks; k++){
+            var cAng = capRand(0, Math.PI * 2);
+            var cDist = Math.pow(Math.random(), 0.7) * coreRadius;
+            var bx = Math.round(cx + Math.cos(cAng) * cDist);
+            var by = Math.round(cy + Math.sin(cAng) * cDist * 0.9);
+            if (bx < 0 || by < 0 || bx >= bfCols || by >= bfRows) continue;
+            var bsize = capPick([2, 2, 3, 3]);
+            bfCtx.globalAlpha = capRand(0.09, 0.15); // el nucleo se nota un poco mas
+            bfCtx.fillStyle = capPick(BLOOD_SHADES_CORE);
+            bfCtx.fillRect(bx * BF_CELL, by * BF_CELL, bsize * BF_CELL, bsize * BF_CELL);
+          }
+
+          // ---- salpicaduras alrededor del nucleo, cada vez mas tenues hacia afuera ----
+          var blocksInCluster = Math.floor(capRand(16, 28));
+          for (var i = 0; i < blocksInCluster; i++){
+            var ang = capRand(0, Math.PI * 2);
+            var t = Math.pow(Math.random(), 1.5); // 0 (cerca) .. 1 (lejos)
+            var dist = coreRadius + t * spread;
+            var bx2 = Math.round(cx + Math.cos(ang) * dist);
+            var by2 = Math.round(cy + Math.sin(ang) * dist * 0.85);
+            if (bx2 < 0 || by2 < 0 || bx2 >= bfCols || by2 >= bfRows) continue;
+            var bsize2 = t > 0.6 ? 1 : capPick([1, 2, 2]);
+            bfCtx.globalAlpha = capRand(0.03, 0.08) * (1 - t * 0.4); // se apaga hacia afuera
+            bfCtx.fillStyle = capPick(BLOOD_SHADES);
+            bfCtx.fillRect(bx2 * BF_CELL, by2 * BF_CELL, bsize2 * BF_CELL, bsize2 * BF_CELL);
+          }
+
+          // ---- goteo por gravedad: una o dos gotas cayendo desde el borde del nucleo ----
+          var drips = Math.floor(capRand(0, 2));
+          for (var d = 0; d < drips; d++){
+            var dripAng = capRand(Math.PI * 0.15, Math.PI * 0.85); // mayormente hacia abajo
+            var dx3 = Math.round(cx + Math.cos(dripAng) * coreRadius * 0.6);
+            var dy3 = Math.round(cy + Math.sin(dripAng) * coreRadius * 0.6 + coreRadius);
+            var dripLen = Math.floor(capRand(3, 7));
+            for (var l = 0; l < dripLen; l++){
+              if (dx3 < 0 || dy3 < 0 || dx3 >= bfCols || dy3 >= bfRows) break;
+              bfCtx.globalAlpha = capRand(0.04, 0.09) * (1 - l / dripLen);
+              bfCtx.fillStyle = capPick(BLOOD_SHADES_CORE);
+              var dripSize = l < 2 ? 2 : 1;
+              bfCtx.fillRect(dx3 * BF_CELL, dy3 * BF_CELL, dripSize * BF_CELL, dripSize * BF_CELL);
+              dy3 += 1;
+              if (Math.random() < 0.3) dx3 += (Math.random() < 0.5 ? -1 : 1);
+            }
+          }
+        }
+        bfCtx.globalAlpha = 1;
+      }
+
+      sizeBloodField();
+      drawBloodField();
+      window.addEventListener("resize", function(){
+        sizeBloodField();
+        drawBloodField();
+      });
+    }
   })();
 </script>
 
